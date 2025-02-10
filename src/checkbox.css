@@ -1,0 +1,16 @@
+input[type="checkbox"] {
+    aspect-ratio: 1;
+    /*width: 10%;*/
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    appearance: none;
+    border: 2px solid #957d6f;
+    border-radius: 4px;
+    background-color: #957d6f;
+    transition: background-color 0.3s ease;
+}
+
+input[type="checkbox"]:checked {
+    background-color: white;
+}

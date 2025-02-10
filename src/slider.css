@@ -1,0 +1,73 @@
+
+.effect input[type="range"] {
+    max-width: 70%;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    height: 5px;
+    /*height: 5px;*/
+    background: #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: background 0.3s;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    width: 100%;
+}
+
+input[type="range"]:hover {
+    background: #ccc;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    aspect-ratio: 0.5;
+    background: #c2a38f;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    background: #957d6f;
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+    background: #67554a;
+}
+
+
+input[type="range"]::-moz-range-thumb {
+    height: 5px;
+    background: #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: background 0.3s;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+    background: #ccc;
+}
+
+input[type="range"]::-ms-thumb {
+    appearance: none;
+    width: 10px;
+    height: 20px;
+    background: #c2a38f;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+input[type="range"]::-ms-thumb:hover {
+    background: #957d6f;
+}
+input[type="range"]::-ms-thumb:active {
+    background: #67554a;
+}
