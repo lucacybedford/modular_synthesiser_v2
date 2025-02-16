@@ -928,7 +928,41 @@ function App(): ReactElement {
             <div id={"horizontal-container"}>
                 <div id={"vertical-container"}>
                     <div id={"module-board-container"}>
-                        <div id={"module-board"}>module board</div>
+                        <div id={"module-board"}>
+                            <div className={"module-line"}>
+                                <div className={"checkbox-container"}>
+                                    <label className="switch">
+                                        <input type="checkbox" className="checkbox"/>
+                                        <div className="slider"></div>
+                                    </label>
+                                    {/*<input type={"checkbox"}/>*/}
+                                </div>
+                                <div className={"module-container"}>
+                                </div>
+                            </div>
+                            <div className={"separator"}></div>
+                            <div className={"module-line"}>
+                                <div className={"checkbox-container"}>
+                                    <label className="switch">
+                                        <input type="checkbox" className="checkbox"/>
+                                        <div className="slider"></div>
+                                    </label>
+                                </div>
+                                <div className={"module-container"}>
+                                </div>
+                            </div>
+                            <div className={"separator"}></div>
+                            <div className={"module-line"}>
+                                <div className={"checkbox-container"}>
+                                    <label className="switch">
+                                        <input type="checkbox" className="checkbox"/>
+                                        <div className="slider"></div>
+                                    </label>
+                                </div>
+                                <div className={"module-container"}>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div id={"parameter-board-container"}>
                         <div id={"parameter-board"}>parameter board</div>

@@ -66,13 +66,14 @@ html, body {
 #module-board {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 100%;
   background-color: #dab9a4;
   border: 2px solid white;
   border-radius: 15px;
+  padding: 6px;
 }
 
 #module-board-container {
@@ -131,6 +132,44 @@ html, body {
   padding-bottom: 6px;
 }
 
+.module-line {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 30%;
+  /*border: 2px solid white;*/
+}
+
+.checkbox-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1;
+  height: 100%;
+  /*width: 20%;*/
+  /*border: 2px solid white;*/
+}
+
+.module-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 100%;
+}
+
+.separator {
+  background-color: #957d6f;
+  height: 4px;
+  width: 80%;
+  border-radius: 2px;
+  /*margin: 10px;*/
+}
+
 h1 {
   align-self: center;
 }
@@ -159,12 +198,7 @@ h1 {
 /*  align-items: self-start;*/
 /*}*/
 
-/*.separator {*/
-/*  background-color: #957d6f;*/
-/*  height: 2px;*/
-/*  border-radius: 1px;*/
-/*  margin: 10px;*/
-/*}*/
+
 
 /*.card {*/
 /*  display: flex;*/
