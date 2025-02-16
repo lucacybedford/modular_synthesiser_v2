@@ -1,6 +1,5 @@
 import './App.css'
 import {ReactElement, useEffect, useState} from "react";
-// import keyboardMockup from './assets/keyboard_mockup.png';
 import logo from './assets/logo.png';
 import * as Tone from "tone";
 import $ from "jquery";
