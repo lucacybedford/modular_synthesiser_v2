@@ -1,6 +1,6 @@
 import './App.css'
 import {ReactElement, useEffect, useState} from "react";
-import logo from './assets/logo.png';
+import logo from './assets/logo2.png';
 import * as Tone from "tone";
 import $ from "jquery";
 
@@ -918,8 +918,8 @@ function App(): ReactElement {
                     style={{
                         height: '100%',
                         width: 'auto',
-                        marginLeft: '6px',
-                        marginRight: '6px'
+                        // marginLeft: '6px',
+                        // marginRight: '6px'
                     }}
                 />
                 <h1>SynthWeb - Modular Synthesiser</h1>
