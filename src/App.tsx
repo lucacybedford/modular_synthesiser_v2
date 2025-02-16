@@ -918,8 +918,8 @@ function App(): ReactElement {
                     style={{
                         height: '100%',
                         width: 'auto',
-                        // marginLeft: '6px',
-                        // marginRight: '6px'
+                        marginLeft: '6px',
+                        marginRight: '6px'
                     }}
                 />
                 <h1>SynthWeb - Modular Synthesiser</h1>
