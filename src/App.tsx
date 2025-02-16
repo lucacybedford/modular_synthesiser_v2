@@ -1,6 +1,7 @@
 import './App.css'
 import {ReactElement, useEffect, useState} from "react";
 // import keyboardMockup from './assets/keyboard_mockup.png';
+import logo from './assets/logo.png';
 import * as Tone from "tone";
 import $ from "jquery";
 
@@ -911,13 +912,31 @@ function App(): ReactElement {
 
     return (
         <div id={"body"}>
-            <div id={"title-bar"}>title bar</div>
+            <div id={"title-bar"}>
+                <img
+                    src={logo}
+                    alt="Logo"
+                    style={{
+                        height: '100%',
+                        width: 'auto',
+                        marginLeft: '6px',
+                        marginRight: '6px'
+                    }}
+                />
+                <h1>SynthWeb - Modular Synthesiser</h1>
+            </div>
             <div id={"horizontal-container"}>
                 <div id={"vertical-container"}>
-                    <div id={"module-board"}>module board</div>
-                    <div id={"parameter-board"}>parameter board</div>
+                    <div id={"module-board-container"}>
+                        <div id={"module-board"}>module board</div>
+                    </div>
+                    <div id={"parameter-board-container"}>
+                        <div id={"parameter-board"}>parameter board</div>
+                    </div>
                 </div>
-                <div id={"module-selector"}>module selector</div>
+                <div id={"module-selector-container"}>
+                    <div id={"module-selector"}>module selector</div>
+                </div>
             </div>
         </div>
     )
