@@ -936,6 +936,13 @@ function App(): ReactElement {
                                     </label>
                                 </div>
                                 <div className={"module-container"}>
+                                    <div className={"empty-module-space"}></div>
+                                    <div className={"empty-module-space"}></div>
+                                    <div className={"empty-module-space"}></div>
+                                    <div className={"empty-module-space"}></div>
+                                    <div className={"empty-module-space"}></div>
+                                    <div className={"empty-module-space"}></div>
+                                    <div className={"module-space"}></div>
                                 </div>
                             </div>
                             <div className={"separator"}></div>
@@ -947,6 +954,13 @@ function App(): ReactElement {
                                     </label>
                                 </div>
                                 <div className={"module-container"}>
+                                    <div className={"empty-module-space"}></div>
+                                    <div className={"empty-module-space"}></div>
+                                    <div className={"empty-module-space"}></div>
+                                    <div className={"empty-module-space"}></div>
+                                    <div className={"empty-module-space"}></div>
+                                    <div className={"empty-module-space"}></div>
+                                    <div className={"module-space"}></div>
                                 </div>
                             </div>
                             <div className={"separator"}></div>
@@ -975,7 +989,23 @@ function App(): ReactElement {
                     </div>
                 </div>
                 <div id={"module-selector-container"}>
-                    <div id={"module-selector"}>module selector</div>
+                    <div id={"module-selector"}>
+                        <div id={"scrollable-module-container"}>
+                            <div className={"mock-module"}></div>
+                            <div className={"mock-module"}></div>
+                            <div className={"mock-module"}></div>
+                            <div className={"mock-module"}></div>
+                            <div className={"mock-module"}></div>
+                            <div className={"mock-module"}></div>
+                            <div className={"mock-module"}></div>
+                            <div className={"mock-module"}></div>
+                            <div className={"mock-module"}></div>
+                            <div className={"mock-module"}></div>
+                            <div className={"mock-module"}></div>
+                            <div className={"mock-module"}></div>
+                            <div className={"mock-module"}></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
