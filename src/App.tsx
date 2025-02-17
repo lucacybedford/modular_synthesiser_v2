@@ -934,7 +934,6 @@ function App(): ReactElement {
                                         <input type="checkbox" className="checkbox"/>
                                         <div className="slider"></div>
                                     </label>
-                                    {/*<input type={"checkbox"}/>*/}
                                 </div>
                                 <div className={"module-container"}>
                                 </div>
@@ -959,7 +958,15 @@ function App(): ReactElement {
                                     </label>
                                 </div>
                                 <div className={"module-container"}>
+                                    <div className={"empty-module-space"}></div>
+                                    <div className={"empty-module-space"}></div>
+                                    <div className={"empty-module-space"}></div>
+                                    <div className={"empty-module-space"}></div>
+                                    <div className={"empty-module-space"}></div>
+                                    <div className={"empty-module-space"}></div>
+                                    <div className={"module-space"}></div>
                                 </div>
+                                {/*<div className={"checkbox-container"}></div>*/}
                             </div>
                         </div>
                     </div>
