@@ -1,59 +1,54 @@
-import React, { useState, useCallback } from 'react';
-import { useDrop } from 'react-dnd';
-import ModuleSlot from './ModuleSlot';
-import { ItemTypes } from './ItemTypes';
+// import React from "react";
+import Switch from "./Switch";
 
-interface ModuleBoardProps {
-    moduleBoard: string[];
-    setModuleBoard: React.Dispatch<React.SetStateAction<string[]>>;
-}
-
-const ModuleBoard: React.FC<ModuleBoardProps> = ({ moduleBoard, setModuleBoard }) => {
-    const handleDrop = useCallback(
-        (index: number, item: { id: string }) => {
-            setModuleBoard(prevBoard => {
-                const newBoard = [...prevBoard];
-                newBoard[index] = item.id;
-                return newBoard;
-            });
-        },
-        [setModuleBoard]
-    );
-
-    const renderSlot = (i: number) => {
-        return (
-            <div className={"module-line"}>
-                <div className={"checkbox-container"}>
-                    <label className="switch">
-                        <input type="checkbox" className="checkbox"/>
-                        <div className="slider"></div>
-                    </label>
-                </div>
-                <div className={"module-container"}>
-                    <ModuleSlot
-                        index={i}
-                        moduleId={moduleBoard[i]}
-                        onDrop={item => handleDrop(i, item as { id: string })}
-                    />
-                </div>
-            </div>
-        );
-    };
-
+const ModuleBoard = () => {
     return (
         <div id={"module-board-container"}>
             <div id={"module-board"}>
-                {renderSlot(0)}
+                <div className={"module-line"}>
+                    <div className={"checkbox-container"}>
+                        <Switch />
+                    </div>
+                    <div className={"module-container"}>
+                        <div className={"empty-module-space"}></div>
+                        <div className={"empty-module-space"}></div>
+                        <div className={"empty-module-space"}></div>
+                        <div className={"empty-module-space"}></div>
+                        <div className={"empty-module-space"}></div>
+                        <div className={"empty-module-space"}></div>
+                        <div className={"module-space"}></div>
+                    </div>
+                </div>
                 <div className={"separator"}></div>
-                {renderSlot(1)}
+                <div className={"module-line"}>
+                    <div className={"checkbox-container"}>
+                        <Switch />
+                    </div>
+                    <div className={"module-container"}>
+                        <div className={"empty-module-space"}></div>
+                        <div className={"empty-module-space"}></div>
+                        <div className={"empty-module-space"}></div>
+                        <div className={"empty-module-space"}></div>
+                        <div className={"empty-module-space"}></div>
+                        <div className={"empty-module-space"}></div>
+                        <div className={"module-space"}></div>
+                    </div>
+                </div>
                 <div className={"separator"}></div>
-                {renderSlot(2)}
-                <div className={"separator"}></div>
-                {renderSlot(3)}
-                <div className={"separator"}></div>
-                {renderSlot(4)}
-                <div className={"separator"}></div>
-                {renderSlot(5)}
+                <div className={"module-line"}>
+                    <div className={"checkbox-container"}>
+                        <Switch />
+                    </div>
+                    <div className={"module-container"}>
+                        <div className={"empty-module-space"}></div>
+                        <div className={"empty-module-space"}></div>
+                        <div className={"empty-module-space"}></div>
+                        <div className={"empty-module-space"}></div>
+                        <div className={"empty-module-space"}></div>
+                        <div className={"empty-module-space"}></div>
+                        <div className={"module-space"}></div>
+                    </div>
+                </div>
             </div>
         </div>
     );
