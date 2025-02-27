@@ -1,5 +1,4 @@
-// src/utils/midi.ts
-import { noteOn, noteOff } from "./audio"; // Import the audio functions
+import { synth1, synth2, synth3 } from "./audio.tsx";
 
 export function updateDevices(event: MIDIConnectionEvent) {
     console.log(`Name: ${event.port?.name}$, Brand: ${event.port?.manufacturer}$, State: ${event.port?.state}$, Type: ${event.port?.type}$`);
@@ -12,12 +11,18 @@ export function handleInput(input: MIDIMessageEvent) {
         if (command == 144) {
             const velocity = input.data[2];
             if (velocity > 0) {
-                noteOn(note, velocity);
+                synth1.noteOn(note, velocity);
+                synth2.noteOn(note, velocity);
+                synth3.noteOn(note, velocity);
             } else {
-                noteOff(note);
+                synth1.noteOff(note);
+                synth2.noteOff(note);
+                synth3.noteOff(note);
             }
         } else if (command == 128) {
-            noteOff(note);
+            synth1.noteOff(note);
+            synth2.noteOff(note);
+            synth3.noteOff(note);
         }
     }
 }

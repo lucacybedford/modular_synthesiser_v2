@@ -1,4 +1,3 @@
-// src/utils/constants.tsx
 
 export const keyToNote: { [key: string]: number } = {
     q: 48, // C3

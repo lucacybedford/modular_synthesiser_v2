@@ -1,4 +1,3 @@
-// import React from "react";
 import Switch from "./Switch";
 import { synth1, synth2, synth3 } from "../utils/audio.tsx"
 

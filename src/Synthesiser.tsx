@@ -1,4 +1,3 @@
-// src/Synthesizer.ts
 import * as Tone from "tone";
 import { effectValues, synthEnvelope, synth1Parameters } from "./utils/constants"; // Import constants
 import { EffectTypes, EnvelopeTypes } from "./utils/types";  // Import types
