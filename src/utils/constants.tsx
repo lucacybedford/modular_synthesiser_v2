@@ -32,7 +32,31 @@ export const keyToNote: { [key: string]: number } = {
     m: 76, // E5
 };
 
-export const synthType = {
+export const synth1Parameters = {
+    "synth": "synth",
+    "waveform": "sine",
+    "oscillator_type": "",
+    "harmonicity": 3,
+    "modulation_index": 10,
+    "partials1": 0,
+    "partials2": 0,
+    "partials3": 0,
+    "partials4": 0
+};
+
+export const synth2Parameters = {
+    "synth": "synth",
+    "waveform": "sine",
+    "oscillator_type": "",
+    "harmonicity": 3,
+    "modulation_index": 10,
+    "partials1": 0,
+    "partials2": 0,
+    "partials3": 0,
+    "partials4": 0
+};
+
+export const synth3Parameters = {
     "synth": "synth",
     "waveform": "sine",
     "oscillator_type": "",

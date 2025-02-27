@@ -37,13 +37,9 @@ export function failure() {
     console.log("Failed ");
 }
 
-export function navigatorBegin() {
+export function startupMIDI() {
     console.log("navigatorBegin");
     if (navigator.requestMIDIAccess) {
         navigator.requestMIDIAccess().then(success, failure);
     }
-}
-
-export function startupMIDI() {
-    navigatorBegin();
 }

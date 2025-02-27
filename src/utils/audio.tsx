@@ -1,25 +1,20 @@
 // src/utils/audio.ts
 import * as Tone from "tone";
-import { effectValues, synthEnvelope, synthType } from "./constants"; // Import constants
+import { effectValues, synthEnvelope, synth1Parameters } from "./constants"; // Import constants
 import { EffectTypes, EnvelopeTypes } from "./types";  // Import types
 import $ from "jquery";
 import { startupMIDI } from "./midi";
+import {Synthesiser} from "../Synthesiser.tsx";
 
 Tone.setContext(new Tone.Context({ latencyHint: 'interactive' }));
 Tone.getContext().lookAhead = 0.01;
 
 
-let currentSynth1 = new Tone.PolySynth();
-let currentSynth2 = new Tone.PolySynth();
-let currentSynth3 = new Tone.PolySynth();
-currentSynth1.volume.value = -6;
+
+
+// let synth1 = new Tone.PolySynth();
 
 const limiter = new Tone.Limiter(-6);
-
-const moduleChain1: Tone.ToneAudioNode[] = [currentSynth1, limiter];
-const moduleChain2: Tone.ToneAudioNode[] = [currentSynth2, limiter];
-const moduleChain3: Tone.ToneAudioNode[] = [currentSynth3, limiter];
-
 
 const existingModules: { id: string, instance: Tone.ToneAudioNode }[] = [];
 
@@ -27,23 +22,23 @@ const existingModules: { id: string, instance: Tone.ToneAudioNode }[] = [];
 // ------------ Synth Functions ------------
 
 export function updateSynth() {
-    currentSynth1.dispose();
+    synth1.dispose();
     let newSynth: Tone.PolySynth;
 
-    switch (synthType.synth) {
+    switch (synth1Parameters.synth) {
         case "synth": {
             newSynth = new Tone.PolySynth(Tone.Synth);
             break;
         }
         case "amsynth": {
             newSynth = new Tone.PolySynth(Tone.AMSynth);
-            (newSynth as Tone.PolySynth<Tone.AMSynth>).set({harmonicity: synthType.harmonicity});
+            (newSynth as Tone.PolySynth<Tone.AMSynth>).set({harmonicity: synth1Parameters.harmonicity});
             break;
         }
         case "fmsynth": {
             newSynth = new Tone.PolySynth(Tone.FMSynth);
-            (newSynth as Tone.PolySynth<Tone.FMSynth>).set({harmonicity: synthType.harmonicity});
-            (newSynth as Tone.PolySynth<Tone.FMSynth>).set({modulationIndex: synthType.modulation_index});
+            (newSynth as Tone.PolySynth<Tone.FMSynth>).set({harmonicity: synth1Parameters.harmonicity});
+            (newSynth as Tone.PolySynth<Tone.FMSynth>).set({modulationIndex: synth1Parameters.modulation_index});
             break;
         }
         default: {
@@ -54,7 +49,7 @@ export function updateSynth() {
     newSynth.volume.value = -6;
 
     moduleChain1[0] = newSynth;
-    currentSynth1 = newSynth;
+    synth1 = newSynth;
 
 
     setEnvelope();
@@ -69,29 +64,29 @@ export function midiToFreq(number: number) {
 }
 
 export function noteOn(note: number, velocity: number, octave: number = 0){
-    currentSynth1.triggerAttack(midiToFreq(note + octave * 12), Tone.now(), velocity / 127);
-    console.log(currentSynth1.activeVoices);
+    synth1.triggerAttack(midiToFreq(note + octave * 12), Tone.now(), velocity / 127);
+    console.log(synth1.activeVoices);
 } // triggers a note
 
 export function noteOff(note: number, octave: number = 0) {
-    currentSynth1.triggerRelease(midiToFreq(note + octave * 12), Tone.now());
+    synth1.triggerRelease(midiToFreq(note + octave * 12), Tone.now());
 } // releases the note
 
-export function updateSynthSlider (element: keyof typeof synthType) {
+export function updateSynthSlider (element: keyof typeof synth1Parameters) {
     console.log(`Updating slider ${element}`);
-    if (synthType.synth == "amsynth") {
+    if (synth1Parameters.synth == "amsynth") {
         if (element == "harmonicity") {
-            (currentSynth1 as Tone.PolySynth<Tone.AMSynth>).set({harmonicity: synthType.harmonicity})
+            (synth1 as Tone.PolySynth<Tone.AMSynth>).set({harmonicity: synth1Parameters.harmonicity})
         }
     }
 
-    else if (synthType.synth == "fmsynth") {
+    else if (synth1Parameters.synth == "fmsynth") {
         if (element == "harmonicity") {
-            (currentSynth1 as Tone.PolySynth<Tone.FMSynth>).set({harmonicity: synthType.harmonicity})
+            (synth1 as Tone.PolySynth<Tone.FMSynth>).set({harmonicity: synth1Parameters.harmonicity})
         }
 
         else if (element == "modulation_index") {
-            (currentSynth1 as Tone.PolySynth<Tone.FMSynth>).set({modulationIndex: synthType.modulation_index})
+            (synth1 as Tone.PolySynth<Tone.FMSynth>).set({modulationIndex: synth1Parameters.modulation_index})
         }
     }
 } // updates the sliders associated to the synth type
@@ -99,19 +94,19 @@ export function updateSynthSlider (element: keyof typeof synthType) {
 export function updateEnvelope (element: EnvelopeTypes) {
     switch (element) {
         case "attack": {
-            currentSynth1.set({envelope: {attack: synthEnvelope[element]}});
+            synth1.set({envelope: {attack: synthEnvelope[element]}});
             break;
         }
         case "decay": {
-            currentSynth1.set({envelope: {decay: synthEnvelope[element]}});
+            synth1.set({envelope: {decay: synthEnvelope[element]}});
             break;
         }
         case "sustain": {
-            currentSynth1.set({envelope: {sustain: synthEnvelope[element]}});
+            synth1.set({envelope: {sustain: synthEnvelope[element]}});
             break;
         }
         case "release": {
-            currentSynth1.set({envelope: {release: synthEnvelope[element]}});
+            synth1.set({envelope: {release: synthEnvelope[element]}});
             break;
         }
         default: {
@@ -121,7 +116,7 @@ export function updateEnvelope (element: EnvelopeTypes) {
 } // updates the synth's envelope
 
 export function setEnvelope () {
-    currentSynth1.set({
+    synth1.set({
         envelope: {
             attack: synthEnvelope.attack,
             decay: synthEnvelope.decay,
@@ -132,23 +127,23 @@ export function setEnvelope () {
 }
 
 export function setPartials () {
-    currentSynth1.set({
+    synth1.set({
         oscillator: {
             partials: [
-                synthType.partials1,
-                synthType.partials2,
-                synthType.partials3,
-                synthType.partials4
+                synth1Parameters.partials1,
+                synth1Parameters.partials2,
+                synth1Parameters.partials3,
+                synth1Parameters.partials4
             ]
         }
     })
 }
 
 export function resetPartials() {
-    synthType.partials1 = 0;
-    synthType.partials2 = 0;
-    synthType.partials3 = 0;
-    synthType.partials4 = 0;
+    synth1Parameters.partials1 = 0;
+    synth1Parameters.partials2 = 0;
+    synth1Parameters.partials3 = 0;
+    synth1Parameters.partials4 = 0;
 
     $("#partials1-slider").val("0");
     $("#partials2-slider").val("0");
@@ -159,11 +154,11 @@ export function resetPartials() {
 }
 
 export function updateButton () {
-    let oscillatorType = synthType.waveform as EffectTypes;
+    let oscillatorType = synth1Parameters.waveform as EffectTypes;
     if (oscillatorType!= "pulse" && oscillatorType != "pwm") {
-        oscillatorType = synthType.oscillator_type+oscillatorType as EffectTypes;
+        oscillatorType = synth1Parameters.oscillator_type+oscillatorType as EffectTypes;
     }
-    currentSynth1.set({oscillator: {type: oscillatorType as EffectTypes}});
+    synth1.set({oscillator: {type: oscillatorType as EffectTypes}});
 } // sets the oscillator to the chosen type from buttons
 
 
@@ -207,15 +202,15 @@ export function setPresetRandom() {
     const synthNumber = (Math.random() * 4).toFixed(0);
     switch (synthNumber) {
         case "0":
-            synthType["synth"] = "synth";
+            synth1Parameters["synth"] = "synth";
             $("#synth1").prop("checked", true);
             break;
         case "1":
-            synthType["synth"] = "amsynth";
+            synth1Parameters["synth"] = "amsynth";
             $("#synth2").prop("checked", true);
             break;
         case "2":
-            synthType["synth"] = "fmsynth";
+            synth1Parameters["synth"] = "fmsynth";
             $("#synth3").prop("checked", true);
             break;
     }
@@ -223,27 +218,27 @@ export function setPresetRandom() {
     const waveformNumber = (Math.random() * 7).toFixed(0);
     switch (waveformNumber) {
         case "0":
-            synthType["waveform"] = "sine";
+            synth1Parameters["waveform"] = "sine";
             $("#waveform1").prop("checked", true);
             break;
         case "1":
-            synthType["waveform"] = "square";
+            synth1Parameters["waveform"] = "square";
             $("#waveform2").prop("checked", true);
             break;
         case "2":
-            synthType["waveform"] = "sawtooth";
+            synth1Parameters["waveform"] = "sawtooth";
             $("#waveform3").prop("checked", true);
             break;
         case "3":
-            synthType["waveform"] = "triangle";
+            synth1Parameters["waveform"] = "triangle";
             $("#waveform4").prop("checked", true);
             break;
         case "4":
-            synthType["waveform"] = "pulse";
+            synth1Parameters["waveform"] = "pulse";
             $("#waveform5").prop("checked", true);
             break;
         case "5":
-            synthType["waveform"] = "pwm";
+            synth1Parameters["waveform"] = "pwm";
             $("#waveform6").prop("checked", true);
             break;
     }
@@ -251,19 +246,19 @@ export function setPresetRandom() {
     const modifierNumber = (Math.random() * 5).toFixed(0);
     switch (modifierNumber) {
         case "0":
-            synthType["oscillator_type"] = "";
+            synth1Parameters["oscillator_type"] = "";
             $("#modifier1").prop("checked", true);
             break;
         case "1":
-            synthType["oscillator_type"] = "am";
+            synth1Parameters["oscillator_type"] = "am";
             $("#modifier2").prop("checked", true);
             break;
         case "2":
-            synthType["oscillator_type"] = "fm";
+            synth1Parameters["oscillator_type"] = "fm";
             $("#modifier3").prop("checked", true);
             break;
         case "3":
-            synthType["oscillator_type"] = "fat";
+            synth1Parameters["oscillator_type"] = "fat";
             $("#modifier4").prop("checked", true);
             break;
     }
@@ -311,7 +306,7 @@ export function setPresetRandom() {
 }
 
 export function setPreset1() {
-    Object.assign(synthType,{
+    Object.assign(synth1Parameters,{
         "synth": "synth",
         "waveform": "sine",
         "oscillator_type": "fat",
@@ -346,7 +341,7 @@ export function setPreset1() {
 }
 
 export function setPreset2() {
-    Object.assign(synthType,{
+    Object.assign(synth1Parameters,{
         "synth": "synth",
         "waveform": "triangle",
         "oscillator_type": ""
@@ -379,7 +374,7 @@ export function setPreset2() {
 }
 
 export function setPreset3() {
-    Object.assign(synthType,{
+    Object.assign(synth1Parameters,{
         "synth": "fmsynth",
         "waveform": "triangle",
         "oscillator_type": "fm"
@@ -408,7 +403,7 @@ export function setPreset3() {
 }
 
 export function setPreset4() {
-    Object.assign(synthType,{
+    Object.assign(synth1Parameters,{
         "synth": "amsynth",
         "waveform": "pwm",
         "oscillator_type": ""
@@ -445,7 +440,7 @@ export function setPreset4() {
 }
 
 export function setPreset5() {
-    Object.assign(synthType,{
+    Object.assign(synth1Parameters,{
         "synth": "amsynth",
         "waveform": "sine",
         "oscillator_type": "fm"
@@ -471,7 +466,7 @@ export function setPreset5() {
 }
 
 export function setPreset6() {
-    Object.assign(synthType,{
+    Object.assign(synth1Parameters,{
         "synth": "fmsynth",
         "waveform": "triangle",
         "oscillator_type": "am"
@@ -525,7 +520,7 @@ export function setSliders() {
     for (const [name, value] of Object.entries(synthEnvelope)) {
         $("#" + name+"-slider").val(value);
     }
-    for (const [name, value] of Object.entries(synthType)) {
+    for (const [name, value] of Object.entries(synth1Parameters)) {
         $("#" + name+"-slider").val(value);
     }
 }
@@ -671,7 +666,22 @@ export function isDelayType(module: Tone.ToneAudioNode) {
 }
 
 export function startup() {
-    connectChain();
-    updateSynth();
     startupMIDI();
+    console.log("Startup");
 }
+
+
+export const synth1 = new Synthesiser();
+export const synth2 = new Synthesiser();
+export const synth3 = new Synthesiser();
+
+startup();
+
+synth2.synthParameters.waveform = "triangle";
+synth2.synthParameters.synth = "fmsynth";
+synth2.updateSynth();
+
+synth3.synthParameters.waveform = "fatsine";
+synth3.synthParameters.synth = "synth";
+synth3.updateSynth();
+

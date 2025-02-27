@@ -1,10 +1,13 @@
-// import React from "react";
-// import '../switch.css'
+import React from "react";
 
-const Switch = () => {
+interface SwitchProps {
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+const Switch = ({onChange}: SwitchProps) => {
     return (
         <label className="switch">
-            <input type="checkbox" className="checkbox" />
+            <input type="checkbox" className="checkbox" onChange={onChange}/>
             <div className="slider"></div>
         </label>
     );

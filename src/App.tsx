@@ -2,30 +2,25 @@ import { ReactElement, useEffect, useState } from "react";
 import './App.css';
 import './index.css';
 import './switch.css';
-
-
 import ModuleBoard from "./components/ModuleBoard";
 import ParameterBoard from "./components/ParameterBoard";
 import ModuleSelector from "./components/ModuleSelector";
-import { startup, noteOn, noteOff } from "./utils/audio"; // Import audio functions
 import logo from './assets/logo.png';
 import { keyToNote } from "./utils/constants";
+import { synth1, synth2, synth3 } from "./utils/audio.tsx";
+
+
+let isMIDICompatible = true;
+
+if (!navigator.requestMIDIAccess) {
+    isMIDICompatible = false;
+    console.error("Web MIDI API is not supported in this browser.");
+}
+
 
 function App(): ReactElement {
     const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
     const [octave, setOctave] = useState(0);
-    const [, setIsMIDICompatible] = useState(true);
-
-    useEffect(() => {
-        startup(); // Initialize audio context and MIDI
-    }, []); // Run once on mount
-
-    useEffect(() => {
-        if (!navigator.requestMIDIAccess) {
-            setIsMIDICompatible(false);
-            console.error("Web MIDI API is not supported in this browser.");
-        }
-    }, []);
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
@@ -37,7 +32,9 @@ function App(): ReactElement {
                 const note = keyToNote[event.key];
                 if (note && !pressedKeys.has(event.key)) {
                     setPressedKeys((prev) => new Set(prev).add(event.key));
-                    noteOn(note, 127, octave); // Use imported function
+                    synth1.noteOn(note, 127, octave);
+                    synth2.noteOn(note, 127, octave);
+                    synth3.noteOn(note, 127, octave);
                 }
             }
         };
@@ -51,7 +48,9 @@ function App(): ReactElement {
                         updated.delete(event.key);
                         return updated;
                     });
-                    noteOff(note, octave); // Use imported function
+                    synth1.noteOff(note, octave);
+                    synth2.noteOff(note, octave);
+                    synth3.noteOff(note, octave);
                 }
             }
         };
@@ -79,6 +78,11 @@ function App(): ReactElement {
                     }}
                 />
                 <h1>SynthWeb - Modular Synthesiser</h1>
+                {!isMIDICompatible && (
+                    <div id={"MIDI-warning"}>
+                        This browser does not support Web MIDI API.
+                    </div>
+                )}
             </div>
             <div id={"horizontal-container"}>
                 <div id={"vertical-container"}>
