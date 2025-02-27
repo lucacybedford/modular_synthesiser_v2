@@ -11,7 +11,6 @@
     display: flex;
     align-items: center;
     border: 3px solid #957d6f;
-    /*border: 3px solid transparent;*/
     transition: .3s;
     box-shadow: 0 0 7px 0 rgb(0, 0, 0, 0.25) inset;
     cursor: pointer;
@@ -35,7 +34,6 @@
 }
 
 .checkbox:checked ~ .slider {
-    /*background-color: #dab9a4;*/
     background-color: #67554a;
 }
 
