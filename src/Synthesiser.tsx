@@ -234,6 +234,9 @@ export class Synthesiser {
 
 
     public setPreset(number: number): void {
+        /*
+        Sets the correct modules and parameters for each preset
+         */
         this.resetChain();
         this.resetCheckboxes();
         switch (number) {
@@ -267,6 +270,9 @@ export class Synthesiser {
     }
 
     public setPresetRandom(): void {
+        /*
+        Randomises which modules are active and all parameters linked to oscillator
+         */
         let randomIsOn;
         const notModules = ["bitcrusher", "highpass", "lowpass", "notch", "bandpass", "phaser1", "phaser2", "feedback1", "feedback2", "pingpong1", "pingpong2", "chorus1", "chorus2", "vibrato1", "vibrato2"];
 
@@ -377,6 +383,9 @@ export class Synthesiser {
     }
 
     public setPreset1(): void {
+        /*
+        All settings for preset 1
+         */
         Object.assign(synth1Parameters, {
             "synth": "synth",
             "waveform": "sine",
@@ -412,6 +421,9 @@ export class Synthesiser {
     }
 
     public setPreset2(): void {
+        /*
+        All settings for preset 2
+         */
         Object.assign(synth1Parameters, {
             "synth": "synth",
             "waveform": "triangle",
@@ -445,6 +457,9 @@ export class Synthesiser {
     }
 
     public setPreset3(): void {
+        /*
+        All settings for preset 3
+         */
         Object.assign(synth1Parameters, {
             "synth": "fmsynth",
             "waveform": "triangle",
@@ -474,6 +489,9 @@ export class Synthesiser {
     }
 
     public setPreset4(): void {
+        /*
+        All settings for preset 4
+         */
         Object.assign(synth1Parameters, {
             "synth": "amsynth",
             "waveform": "pwm",
@@ -511,6 +529,9 @@ export class Synthesiser {
     }
 
     public setPreset5(): void {
+        /*
+        All settings for preset 5
+         */
         Object.assign(synth1Parameters, {
             "synth": "amsynth",
             "waveform": "sine",
@@ -537,6 +558,9 @@ export class Synthesiser {
     }
 
     public setPreset6(): void {
+        /*
+        All settings for preset 6
+         */
         Object.assign(synth1Parameters, {
             "synth": "fmsynth",
             "waveform": "triangle",
@@ -579,12 +603,18 @@ export class Synthesiser {
 
 
     public resetCheckboxes(): void {
+        /*
+        Turns all checkboxes off
+         */
         for (const name of Object.keys(effectValues)) {
             $("#" + name + "-toggle").prop("checked", false);
         }
     }
 
     public setSliders(): void {
+        /*
+        Sets the sliders to the stored values
+         */
         for (const [name, value] of Object.entries(effectValues)) {
             $("#" + name + "-slider").val(value);
         }
@@ -599,6 +629,9 @@ export class Synthesiser {
     // ------------ Module Chain Functions ------------
 
     public connectChain(): void {
+        /*
+        Connects all the modules in the module chain
+         */
         for (let i = 0; i < this.moduleChain.length - 1; i++) {
             const first = this.moduleChain[i];
             const second = this.moduleChain[i + 1];
@@ -616,6 +649,9 @@ export class Synthesiser {
     }
 
     public resetChain(): void {
+        /*
+        Removes all modules from module chain
+         */
         console.log("RESETTING CHAIN of length " + this.moduleChain.length);
         const originalChainLength = this.moduleChain.length;
         for (let i = 1; i < originalChainLength - 1; i++) {
@@ -627,6 +663,9 @@ export class Synthesiser {
     }
 
     public addModule(moduleType: string): void {
+        /*
+        Adds a module to the module chain
+         */
         let module: Tone.ToneAudioNode;
 
         switch (moduleType) {
@@ -693,6 +732,9 @@ export class Synthesiser {
     }
 
     public removeModule({ moduleType, moduleObject }: { moduleType?: string; moduleObject?: Tone.ToneAudioNode }): void {
+        /*
+        Removes a module based on the object or module type passed in
+         */
         if (moduleObject) {
             const moduleIndex = this.existingModules.findIndex(module => module.instance === moduleObject);
             if (moduleIndex === -1) {
@@ -731,6 +773,9 @@ export class Synthesiser {
     }
 
     public isDelayType(module: Tone.ToneAudioNode): boolean {
+        /*
+        Checks if the selected module is a module which adds delay
+         */
         // return typeof module == typeof Tone.Delay || typeof module == typeof Tone.FeedbackDelay || typeof module == typeof Tone.PingPongDelay;
         const delayNames = ["Delay", "FeedbackDelay", "PingPongDelay"]
         return delayNames.includes(module.name);
