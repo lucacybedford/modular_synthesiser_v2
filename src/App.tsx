@@ -9,6 +9,7 @@ import ModuleSelector from "./components/ModuleSelector";
 import logo from './assets/logo.png';
 import { keyToNote } from "./utils/constants";
 import { synth1, synth2, synth3 } from "./utils/audio.tsx";
+import {Synthesiser} from "./Synthesiser.tsx";
 
 
 let isMIDICompatible = true;
@@ -65,6 +66,13 @@ function App(): ReactElement {
         };
     }, [pressedKeys, octave]);
 
+    const [selectedSynth, setSelectedSynth] = useState<Synthesiser | null>(null); // Initialize to null
+
+    const handleSynthSelection = (synth: Synthesiser) => {
+        setSelectedSynth(synth);
+        console.log("Synth "+synth.id+" selected");
+    };
+
     return (
         <div id={"body"}>
             <div id={"title-bar"}>
@@ -87,8 +95,8 @@ function App(): ReactElement {
             </div>
             <div id={"horizontal-container"}>
                 <div id={"vertical-container"}>
-                    <ModuleBoard />
-                    <ParameterBoard />
+                    <ModuleBoard onSynthSelect = {handleSynthSelection}/>
+                    <ParameterBoard selectedSynth = {selectedSynth}/>
                 </div>
                 <ModuleSelector />
             </div>

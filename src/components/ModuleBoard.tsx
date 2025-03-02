@@ -1,10 +1,15 @@
 import Switch from "./Switch.tsx";
 import Module from "./Module.tsx";
 import { synth1, synth2, synth3 } from "../utils/audio.tsx"
-import { setSelectedSynth } from "../utils/logic.tsx";
+// import { setSelectedSynth } from "../utils/logic.tsx";
+import {Synthesiser} from "../Synthesiser.tsx";
 
 
-const ModuleBoard = () => {
+interface ModuleBoardProps {
+    onSynthSelect: (synth: Synthesiser) => void;
+}
+
+const ModuleBoard = ({ onSynthSelect }: ModuleBoardProps) => {
     return (
         <div id={"module-board-container"}>
             <div id={"module-board"}>
@@ -26,7 +31,8 @@ const ModuleBoard = () => {
                     <div className={"module-container"}>
                         <Module onClick={
                             () => {
-                                setSelectedSynth(synth1);
+                                onSynthSelect(synth1);
+                                // setSelectedSynth(synth1);
                             }
                         }></Module>
                         <div className={"empty-module-space"}></div>
@@ -57,7 +63,8 @@ const ModuleBoard = () => {
                     <div className={"module-container"}>
                         <Module onClick={
                             () => {
-                                setSelectedSynth(synth2);
+                                onSynthSelect(synth2);
+                                // setSelectedSynth(synth2);
                             }
                         }></Module>
                         <div className={"empty-module-space"}></div>
@@ -88,7 +95,8 @@ const ModuleBoard = () => {
                     <div className={"module-container"}>
                         <Module onClick={
                             () => {
-                                setSelectedSynth(synth3);
+                                onSynthSelect(synth3);
+                                // setSelectedSynth(synth3);
                             }
                         }></Module>
                         <div className={"empty-module-space"}></div>
