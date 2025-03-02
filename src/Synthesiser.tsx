@@ -9,7 +9,7 @@ export class Synthesiser {
     private readonly moduleChain: Tone.ToneAudioNode[];
     private existingModules: { id: string, instance: Tone.ToneAudioNode }[] = [];
     private synthOn: boolean = false;
-    public id: number;
+    public readonly id: number;
 
 
     synthParameters = {

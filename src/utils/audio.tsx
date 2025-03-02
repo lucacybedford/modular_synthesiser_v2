@@ -1,11 +1,9 @@
 import { startupMIDI } from "./midi";
 import {Synthesiser} from "../Synthesiser.tsx";
-import { setSelectedSynth } from "./logic.tsx";
 
 
 export function startup() {
     startupMIDI();
-    setSelectedSynth(synth1);
     console.log("Startup");
 }
 
