@@ -1,6 +1,6 @@
 import * as Tone from "tone";
-import { effectValues, synthEnvelope, synth1Parameters } from "./utils/constants"; // Import constants
-import { EffectTypes, EnvelopeTypes } from "./utils/types";  // Import types
+import { effectValues, synthEnvelope, synth1Parameters } from "./utils/constants";
+import { EffectTypes, EnvelopeTypes } from "./utils/types";
 import $ from "jquery";
 
 export class Synthesiser {
@@ -9,6 +9,7 @@ export class Synthesiser {
     private readonly moduleChain: Tone.ToneAudioNode[];
     private existingModules: { id: string, instance: Tone.ToneAudioNode }[] = [];
     private synthOn: boolean = false;
+    public id: number;
 
 
     synthParameters = {
@@ -30,12 +31,10 @@ export class Synthesiser {
         "release": 2,
     };
 
-    constructor() {
-        // Tone.setContext(new Tone.Context({ latencyHint: 'interactive' }));
-        // Tone.getContext().lookAhead = 0.01;
-
+    constructor(id: number) {
         this.currentSynth = new Tone.PolySynth();
         this.currentSynth.volume.value = -6;
+        this.id = id;
 
         this.limiter = new Tone.Limiter(-6);
 
@@ -775,7 +774,6 @@ export class Synthesiser {
         /*
         Checks if the selected module is a module which adds delay
          */
-        // return typeof module == typeof Tone.Delay || typeof module == typeof Tone.FeedbackDelay || typeof module == typeof Tone.PingPongDelay;
         const delayNames = ["Delay", "FeedbackDelay", "PingPongDelay"]
         return delayNames.includes(module.name);
     }

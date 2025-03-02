@@ -1,5 +1,7 @@
-import Switch from "./Switch";
+import Switch from "./Switch.tsx";
+import Module from "./Module.tsx";
 import { synth1, synth2, synth3 } from "../utils/audio.tsx"
+import { setSelectedSynth } from "../utils/logic.tsx";
 
 
 const ModuleBoard = () => {
@@ -22,6 +24,11 @@ const ModuleBoard = () => {
                         }/>
                     </div>
                     <div className={"module-container"}>
+                        <Module onClick={
+                            () => {
+                                setSelectedSynth(synth1);
+                            }
+                        }></Module>
                         <div className={"empty-module-space"}></div>
                         <div className={"empty-module-space"}></div>
                         <div className={"empty-module-space"}></div>
@@ -48,6 +55,11 @@ const ModuleBoard = () => {
                         }/>
                     </div>
                     <div className={"module-container"}>
+                        <Module onClick={
+                            () => {
+                                setSelectedSynth(synth2);
+                            }
+                        }></Module>
                         <div className={"empty-module-space"}></div>
                         <div className={"empty-module-space"}></div>
                         <div className={"empty-module-space"}></div>
@@ -74,6 +86,11 @@ const ModuleBoard = () => {
                         }/>
                     </div>
                     <div className={"module-container"}>
+                        <Module onClick={
+                            () => {
+                                setSelectedSynth(synth3);
+                            }
+                        }></Module>
                         <div className={"empty-module-space"}></div>
                         <div className={"empty-module-space"}></div>
                         <div className={"empty-module-space"}></div>

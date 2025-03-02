@@ -186,7 +186,8 @@ html, body {
   align-items: center;
   aspect-ratio: 0.6;
   height: 80%;
-  border-radius: 15px;
+  /*border-radius: 15px;*/
+  border-radius: 20% / 12%;
   background-color: #67554a;
   box-shadow: 0 0 15px 0 rgb(0, 0, 0, 0.4) inset;
 }
@@ -243,6 +244,7 @@ html, body {
 h1 {
   align-self: center;
 }
+
 
 
 /*h1 {*/

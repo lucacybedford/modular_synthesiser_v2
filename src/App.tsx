@@ -1,7 +1,8 @@
 import { ReactElement, useEffect, useState } from "react";
-import './App.css';
-import './index.css';
-import './switch.css';
+import './stylesheets/App.css';
+import './stylesheets/index.css';
+import './stylesheets/switch.css';
+import './stylesheets/module.css';
 import ModuleBoard from "./components/ModuleBoard";
 import ParameterBoard from "./components/ParameterBoard";
 import ModuleSelector from "./components/ModuleSelector";
