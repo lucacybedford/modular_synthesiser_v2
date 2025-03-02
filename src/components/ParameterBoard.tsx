@@ -1,4 +1,3 @@
-// import { selectedObject } from "../utils/logic.tsx";
 import {Synthesiser} from "../Synthesiser.tsx";
 
 interface ParameterBoardProps {

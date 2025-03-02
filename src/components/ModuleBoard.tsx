@@ -1,7 +1,6 @@
 import Switch from "./Switch.tsx";
 import Module from "./Module.tsx";
 import { synth1, synth2, synth3 } from "../utils/audio.tsx"
-// import { setSelectedSynth } from "../utils/logic.tsx";
 import {Synthesiser} from "../Synthesiser.tsx";
 
 
@@ -32,7 +31,6 @@ const ModuleBoard = ({ onSynthSelect }: ModuleBoardProps) => {
                         <Module onClick={
                             () => {
                                 onSynthSelect(synth1);
-                                // setSelectedSynth(synth1);
                             }
                         }></Module>
                         <div className={"empty-module-space"}></div>
@@ -64,7 +62,6 @@ const ModuleBoard = ({ onSynthSelect }: ModuleBoardProps) => {
                         <Module onClick={
                             () => {
                                 onSynthSelect(synth2);
-                                // setSelectedSynth(synth2);
                             }
                         }></Module>
                         <div className={"empty-module-space"}></div>
@@ -96,7 +93,6 @@ const ModuleBoard = ({ onSynthSelect }: ModuleBoardProps) => {
                         <Module onClick={
                             () => {
                                 onSynthSelect(synth3);
-                                // setSelectedSynth(synth3);
                             }
                         }></Module>
                         <div className={"empty-module-space"}></div>
