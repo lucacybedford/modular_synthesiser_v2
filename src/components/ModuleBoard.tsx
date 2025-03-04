@@ -19,6 +19,7 @@ const ModuleBoard = ({ onSynthSelect }: ModuleBoardProps) => {
                                 if (e.target.checked) {
                                     synth1.turnOn();
                                     synth1.updateSynth();
+                                    onSynthSelect(synth1);
                                 }
                                 else {
                                     synth1.turnOff();
@@ -50,6 +51,7 @@ const ModuleBoard = ({ onSynthSelect }: ModuleBoardProps) => {
                                 if (e.target.checked) {
                                     synth2.turnOn();
                                     synth2.updateSynth();
+                                    onSynthSelect(synth2);
                                 }
                                 else {
                                     synth2.turnOff();
@@ -81,6 +83,7 @@ const ModuleBoard = ({ onSynthSelect }: ModuleBoardProps) => {
                                 if (e.target.checked) {
                                     synth3.turnOn();
                                     synth3.updateSynth();
+                                    onSynthSelect(synth3);
                                 }
                                 else {
                                     synth3.turnOff();
