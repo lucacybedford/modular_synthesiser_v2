@@ -1,6 +1,7 @@
 import {Synthesiser} from "../Synthesiser.tsx";
 import {synth1, synth2, synth3} from "../utils/audio.tsx";
 import {useState} from "react";
+import {EnvelopeTypes} from "../utils/types.tsx";
 
 const synths: Synthesiser[] = [synth1, synth2, synth3];
 
@@ -32,6 +33,11 @@ const ParameterBoard = ({selectedSynth}: OscillatorControlsProps) => {
         synths[selectedSynth].updateSynth();
     };
 
+    const handleEnvelopeChange = (newEnvelopeType: EnvelopeTypes, value: string) => {
+        synths[selectedSynth].synthEnvelope[newEnvelopeType] = parseFloat(value);
+        synths[selectedSynth].updateEnvelope(newEnvelopeType);
+    };
+
     return (
         <div id={"parameters-container"}>
             <div id={"synth-number"}>
@@ -39,7 +45,7 @@ const ParameterBoard = ({selectedSynth}: OscillatorControlsProps) => {
             </div>
             <div className={"parameter-column"}>
                 <div className={"column-title"}>
-                    <h3>Synthesiser</h3>
+                    <h3 className={"parameter-titles"}>Synthesiser</h3>
                 </div>
                 <div className={"column-content"}>
                     <input type="radio" id="synth1" name="synth" value="1" onClick={
@@ -47,21 +53,21 @@ const ParameterBoard = ({selectedSynth}: OscillatorControlsProps) => {
                             handleSynthChange("synth");
                         }
                     } defaultChecked = {synthType === "synth"}/>
-                    <label htmlFor="synth1" className="radio-label">Classic</label>
+                    <label htmlFor="synth1" className="radio-label radio-synth">Classic</label>
 
                     <input type="radio" id="synth2" name="synth" value="2" onClick={
                         () => {
                             handleSynthChange("amsynth");
                         }
                     } defaultChecked = {synthType === "amsynth"}/>
-                    <label htmlFor="synth2" className="radio-label">AMSynth</label>
+                    <label htmlFor="synth2" className="radio-label radio-synth">AMSynth</label>
 
                     <input type="radio" id="synth3" name="synth" value="3" onClick={
                         () => {
                             handleSynthChange("fmsynth");
                         }
                     } defaultChecked = {synthType === "fmsynth"}/>
-                    <label htmlFor="synth3" className="radio-label">FMSynth</label>
+                    <label htmlFor="synth3" className="radio-label radio-synth">FMSynth</label>
 
 
 
@@ -69,7 +75,7 @@ const ParameterBoard = ({selectedSynth}: OscillatorControlsProps) => {
             </div>
             <div className={"parameter-column"}>
                 <div className={"column-title"}>
-                    <h3>Waveform</h3>
+                    <h3 className={"parameter-titles"}>Waveform</h3>
                 </div>
                 <div className={"dual-column"}>
                     <div className={"dual-column-content"}>
@@ -78,21 +84,21 @@ const ParameterBoard = ({selectedSynth}: OscillatorControlsProps) => {
                                 handleWaveformChange("sine");
                             }
                         } defaultChecked = {waveformType.includes("sine")}/>
-                        <label htmlFor="waveform1" className="radio-label">Sine</label>
+                        <label htmlFor="waveform1" className="radio-label radio-waveform">Sine</label>
 
                         <input type="radio" id="waveform2" name="waveform" value="2" onClick={
                             () => {
                                 handleWaveformChange("square");
                             }
                         } defaultChecked = {waveformType.includes("square")}/>
-                        <label htmlFor="waveform2" className="radio-label">Square</label>
+                        <label htmlFor="waveform2" className="radio-label radio-waveform">Square</label>
 
                         <input type="radio" id="waveform3" name="waveform" value="3" onClick={
                             () => {
                                 handleWaveformChange("sawtooth");
                             }
                         } defaultChecked = {waveformType.includes("sawtooth")}/>
-                        <label htmlFor="waveform3" className="radio-label">Sawtooth</label>
+                        <label htmlFor="waveform3" className="radio-label radio-waveform">Sawtooth</label>
                     </div>
 
                     <div className={"dual-separator"}></div>
@@ -103,27 +109,27 @@ const ParameterBoard = ({selectedSynth}: OscillatorControlsProps) => {
                                 handleWaveformChange("triangle");
                             }
                         } defaultChecked = {waveformType.includes("triangle")}/>
-                        <label htmlFor="waveform4" className="radio-label">Triangle</label>
+                        <label htmlFor="waveform4" className="radio-label radio-waveform">Triangle</label>
 
                         <input type="radio" id="waveform5" name="waveform" value="5" onClick={
                             () => {
                                 handleWaveformChange("pulse");
                             }
                         } defaultChecked = {waveformType.includes("pulse")}/>
-                        <label htmlFor="waveform5" className="radio-label">Pulse</label>
+                        <label htmlFor="waveform5" className="radio-label radio-waveform">Pulse</label>
 
                         <input type="radio" id="waveform6" name="waveform" value="6" onClick={
                             () => {
                                 handleWaveformChange("pwm");
                             }
                         } defaultChecked = {waveformType.includes("pwm")}/>
-                        <label htmlFor="waveform6" className="radio-label">PWM</label>
+                        <label htmlFor="waveform6" className="radio-label radio-waveform">PWM</label>
                     </div>
                 </div>
             </div>
             <div className={"parameter-column"}>
                 <div className={"column-title"}>
-                    <h3>Modifier</h3>
+                    <h3 className={"parameter-titles"}>Modifier</h3>
                 </div>
                 <div className={"column-content"}>
                     <input type="radio" id="modifier1" name="modifier" value="1" onClick={
@@ -131,61 +137,106 @@ const ParameterBoard = ({selectedSynth}: OscillatorControlsProps) => {
                             handleModifierChange("");
                         }
                     } defaultChecked = {modifierType === ""}/>
-                    <label htmlFor="modifier1" className="radio-label">NONE</label>
+                    <label htmlFor="modifier1" className="radio-label radio-modifier">NONE</label>
 
                     <input type="radio" id="modifier2" name="modifier" value="2" onClick={
                         () => {
                             handleModifierChange("am");
                         }
                     } defaultChecked = {modifierType === "am"}/>
-                    <label htmlFor="modifier2" className="radio-label">AM</label>
+                    <label htmlFor="modifier2" className="radio-label radio-modifier">AM</label>
 
                     <input type="radio" id="modifier3" name="modifier" value="3" onClick={
                         () => {
                             handleModifierChange("fm");
                         }
                     } defaultChecked = {modifierType === "fm"}/>
-                    <label htmlFor="modifier3" className="radio-label">FM</label>
+                    <label htmlFor="modifier3" className="radio-label radio-modifier">FM</label>
 
                     <input type="radio" id="modifier4" name="modifier" value="4" onClick={
                         () => {
                             handleModifierChange("fat");
                         }
                     } defaultChecked = {modifierType === "fat"}/>
-                    <label htmlFor="modifier4" className="radio-label">FAT</label>
+                    <label htmlFor="modifier4" className="radio-label radio-modifier">FAT</label>
                 </div>
             </div>
             <div className={"parameter-column"}>
                 <h3>Envelope</h3>
-                <label className={"small-title"}>Harmonicity</label>
-                {/*<input*/}
-                {/*    type={"range"}*/}
-                {/*    id={"harmonicity-slider"}*/}
-                {/*    min={"1"}*/}
-                {/*    max={"10"}*/}
-                {/*    defaultValue={synths[selectedSynth].synthParameters.harmonicity}*/}
-                {/*    step={"1"}*/}
-                {/*    onChange={*/}
-                {/*        (e) => {*/}
-                {/*            synths[selectedSynth].synthParameters.harmonicity = parseFloat(e.target.value);*/}
-                {/*            synths[selectedSynth].updateHarmonicityAndModulation("harmonicity");*/}
-                {/*        }*/}
-                {/*    }*/}
-                {/*/>*/}
-                {/*<input*/}
-                {/*    type={"range"}*/}
-                {/*    id={"modulation-index-slider"}*/}
-                {/*    min={"1"}*/}
-                {/*    max={"20"}*/}
-                {/*    defaultValue={synths[selectedSynth].synthParameters.modulation_index}*/}
-                {/*    step={"1"}*/}
-                {/*    onChange={*/}
-                {/*        (e) => {*/}
-                {/*            synths[selectedSynth].synthParameters.modulation_index = parseFloat(e.target.value);*/}
-                {/*            synths[selectedSynth].updateHarmonicityAndModulation("modulation_index");*/}
-                {/*        }*/}
-                {/*    }*/}
-                {/*/>*/}
+                <div className={"envelope-container"} id={"envelope-choices"}>
+                    <div className={"envelope-content"}>
+                        <label className={"envelope-label"}>Attack</label>
+                        <div className={"slider-container"}>
+                            <input
+                                type={"range"}
+                                id={"attack-slider"}
+                                min={"0.005"}
+                                max={"3"}
+                                defaultValue={synths[selectedSynth].synthEnvelope.attack}
+                                step={"0.005"}
+                                onChange={
+                                    (e) => {
+                                        handleEnvelopeChange("attack", e.target.value);
+                                    }
+                                }
+                            />
+                        </div>
+                    </div>
+                    <div className={"envelope-content"}>
+                        <label className={"envelope-label"}>Decay</label>
+                        <div className={"slider-container"}>
+                            <input
+                                type={"range"}
+                                id={"decay-slider"}
+                                min={"0.1"}
+                                max={"3"}
+                                defaultValue={synths[selectedSynth].synthEnvelope.decay}
+                                step={"0.01"}
+                                onChange={
+                                    (e) => {
+                                        handleEnvelopeChange("decay", e.target.value);
+                                    }
+                                }
+                            />
+                        </div>
+                    </div>
+                    <div className={"envelope-content"}>
+                        <label className={"envelope-label"}>Sustain</label>
+                        <div className={"slider-container"}>
+                            <input
+                                type={"range"}
+                                id={"sustain-slider"}
+                                min={"0"}
+                                max={"1"}
+                                defaultValue={synths[selectedSynth].synthEnvelope.sustain}
+                                step={"0.01"}
+                                onChange={
+                                    (e) => {
+                                        handleEnvelopeChange("sustain", e.target.value);
+                                    }
+                                }
+                            />
+                        </div>
+                    </div>
+                    <div className={"envelope-content"}>
+                        <label className={"envelope-label"}>Release</label>
+                        <div className={"slider-container"}>
+                            <input
+                                type={"range"}
+                                id={"release-slider"}
+                                min={"0.01"}
+                                max={"5"}
+                                defaultValue={synths[selectedSynth].synthEnvelope.release}
+                                step={"0.01"}
+                                onChange={
+                                    (e) => {
+                                        handleEnvelopeChange("release", e.target.value);
+                                    }
+                                }
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );

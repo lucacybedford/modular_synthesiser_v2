@@ -5,14 +5,13 @@
 
 input[type="range"] {
     -webkit-appearance: none;
-    height: 5px;
-    /*height: 5px;*/
+    height: 1vh;
     background: #ddd;
     border-radius: 5px;
     outline: none;
     transition: background 0.3s;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    /*margin-top: 10px;*/
+    /*margin-bottom: 10px;*/
     cursor: pointer;
     width: 100%;
 }
@@ -24,7 +23,9 @@ input[type="range"]:hover {
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 10px;
+    /*width: 10px;*/
+    height: 3vh;
+    /*height: 1%;*/
     aspect-ratio: 0.5;
     background: #c2a38f;
     border-radius: 3px;
@@ -43,24 +44,35 @@ input[type="range"]::-webkit-slider-thumb:active {
 
 
 
+
 input[type="range"]::-moz-range-thumb {
-    height: 5px;
-    background: #ddd;
-    border-radius: 5px;
-    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 3vh;
+    /*height: 1%;*/
+    aspect-ratio: 0.5;
+    background: #c2a38f;
+    border-radius: 3px;
+    cursor: pointer;
     transition: background 0.3s;
-    margin-top: 10px;
-    margin-bottom: 10px;
 }
 
 input[type="range"]::-moz-range-thumb:hover {
     background: #ccc;
 }
+input[type="range"]::-moz-range-thumb:active {
+    background: #67554a;
+}
+
+
 
 input[type="range"]::-ms-thumb {
+    -webkit-appearance: none;
     appearance: none;
-    width: 10px;
-    height: 20px;
+    /*width: 10px;*/
+    height: 3vh;
+    /*height: 1%;*/
+    aspect-ratio: 0.5;
     background: #c2a38f;
     border-radius: 3px;
     cursor: pointer;
