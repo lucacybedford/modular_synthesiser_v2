@@ -26,6 +26,9 @@ if (!navigator.requestMIDIAccess) {
 function App(): ReactElement {
     const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
     const [octave, setOctave] = useState(0);
+    const [selectedSynth, setSelectedSynth] = useState<Synthesiser | null>(null);
+    // const [selectedSpace, setSelectedSpace] = useState<number | null>(null);
+
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
@@ -69,7 +72,11 @@ function App(): ReactElement {
         };
     }, [pressedKeys, octave]);
 
-    const [selectedSynth, setSelectedSynth] = useState<Synthesiser | null>(null); // Initialize to null
+
+    // const handleSpaceSelection = (id: number) => {
+    //     setSelectedSpace(id);
+    //     console.log("Space "+selectedSpace+" selected");
+    // }
 
     const handleSynthSelection = (synth: Synthesiser) => {
         setSelectedSynth(synth);

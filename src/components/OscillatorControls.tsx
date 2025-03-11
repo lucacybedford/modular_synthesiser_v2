@@ -162,7 +162,7 @@ const ParameterBoard = ({selectedSynth}: OscillatorControlsProps) => {
                 </div>
             </div>
             <div className={"parameter-column"}>
-                <h3>Envelope</h3>
+                <h3 className={"parameter-titles"}>Envelope</h3>
                 <div className={"envelope-container"} id={"envelope-choices"}>
                     <div className={"envelope-content"}>
                         <label className={"envelope-label"}>Attack</label>

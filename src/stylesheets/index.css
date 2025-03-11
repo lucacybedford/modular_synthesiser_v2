@@ -18,6 +18,8 @@ p {
   font-size: 1.5vw;
 }
 
+
+
 * {
   margin: 0;
   padding: 0;
@@ -36,6 +38,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: white;
   height: 100%;
   width: 20%;
   margin-left: auto;
@@ -191,6 +194,10 @@ html, body {
   box-shadow: 0 0 15px 0 rgb(0, 0, 0, 0.4) inset;
 }
 
+.empty-module-space:active {
+  border: 2px solid white;
+}
+
 .module-space {
   display: flex;
   flex-direction: row;
@@ -240,6 +247,7 @@ html, body {
 
 h1 {
   align-self: center;
+  color: white;
 }
 
 /*h1 {*/
