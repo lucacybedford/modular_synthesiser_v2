@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import './stylesheets/App.css';
 import './stylesheets/index.css';
 import './stylesheets/switch.css';
@@ -23,11 +23,14 @@ if (!navigator.requestMIDIAccess) {
 }
 
 
-function App(): ReactElement {
+function App() {
     const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
     const [octave, setOctave] = useState(0);
+
     const [selectedSynth, setSelectedSynth] = useState<Synthesiser | null>(null);
-    // const [selectedSpace, setSelectedSpace] = useState<number | null>(null);
+    const [selectedSpace, setSelectedSpace] = useState<number | null>(null);
+    const [, setSelectedModule] = useState<string | null>(null);
+    const [modules, setModules] = useState<{[key: number]: string | null}>({});
 
 
     useEffect(() => {
@@ -73,15 +76,44 @@ function App(): ReactElement {
     }, [pressedKeys, octave]);
 
 
-    // const handleSpaceSelection = (id: number) => {
-    //     setSelectedSpace(id);
-    //     console.log("Space "+selectedSpace+" selected");
-    // }
-
     const handleSynthSelection = (synth: Synthesiser) => {
         setSelectedSynth(synth);
         console.log("Synth "+synth.id+" selected");
     };
+
+    const handleSpaceSelection = (id: number) => {
+        setSelectedSpace(id);
+        console.log("Space "+id+" selected");
+    };
+
+    const handleModuleSelection = (moduleType: string) => {
+        setSelectedModule(moduleType);
+        console.log(`Module ${moduleType} selected`);
+    };
+
+
+    const addModule = (spaceId: number, moduleType: string) => {
+        setModules(prevModules => ({
+            ...prevModules,
+            [spaceId]: moduleType
+        }));
+        console.log(`Adding module ${moduleType} to space ${spaceId}`);
+
+
+
+        // Additional logic here to update synth parameters based on the new module.
+        // This is where you'd connect the module to the synth's audio graph.
+    };
+
+    const removeModule = (spaceId: number) => {
+        setModules(prevModules => {
+            const newModules = {...prevModules};
+            delete newModules[spaceId];
+            return newModules;
+        });
+        console.log(`Removing module from space ${spaceId}`);
+    };
+
 
     return (
         <div id={"body"}>
@@ -105,10 +137,17 @@ function App(): ReactElement {
             </div>
             <div id={"horizontal-container"}>
                 <div id={"vertical-container"}>
-                    <ModuleBoard onSynthSelect = {handleSynthSelection}/>
+                    <ModuleBoard
+                        onSynthSelect = {handleSynthSelection}
+                        selectedSpace={selectedSpace}
+                        onSpaceSelect={handleSpaceSelection}
+                        modules={modules}
+                        addModule={addModule}
+                        removeModule={removeModule}
+                    />
                     <ParameterBoard selectedSynth = {selectedSynth}/>
                 </div>
-                <ModuleSelector />
+                <ModuleSelector onModuleSelect={handleModuleSelection}/>
             </div>
         </div>
     );
