@@ -107,8 +107,7 @@ function App() {
             console.log("Row 3");
         }
 
-        // Additional logic here to update synth parameters based on the new module.
-        // This is where you'd connect the module to the synth's audio graph.
+        // logic to add module to module chain
     };
 
     const removeModule = (spaceId: number) => {
