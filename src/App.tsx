@@ -99,7 +99,13 @@ function App() {
         }));
         console.log(`Adding module ${moduleType} to space ${spaceId}`);
 
-
+        if (spaceId < 7) {
+            console.log("Row 1");
+        } else if (spaceId > 6 && spaceId < 13) {
+            console.log("Row 2");
+        } else if (spaceId > 12) {
+            console.log("Row 3");
+        }
 
         // Additional logic here to update synth parameters based on the new module.
         // This is where you'd connect the module to the synth's audio graph.
