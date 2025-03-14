@@ -15,7 +15,7 @@ export class Synthesiser {
     synthParameters = {
         "synth": "synth",
         "waveform": "sine",
-        "oscillator_type": "",
+        "modifier": "",
         "harmonicity": 3,
         "modulation_index": 10,
         "partials1": 0,
@@ -221,11 +221,11 @@ export class Synthesiser {
 
     public setOscillatorType(): void {
         /*
-        Sets the oscillator waveform
+        Sets the oscillator waveform including the modifier if possible
          */
         let oscillatorType = this.synthParameters.waveform as EffectTypes;
         if (oscillatorType != "pulse" && oscillatorType != "pwm") {
-            oscillatorType = this.synthParameters.oscillator_type + oscillatorType as EffectTypes;
+            oscillatorType = this.synthParameters.modifier + oscillatorType as EffectTypes;
         }
         this.currentSynth.set({ oscillator: { type: oscillatorType as EffectTypes } });
     }
