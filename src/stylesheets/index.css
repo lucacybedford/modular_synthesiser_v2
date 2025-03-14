@@ -221,6 +221,7 @@ html, body {
 
 .mock-module:hover {
   background-color: #c5a692;
+  transition: 0.2s ease-in-out;
 }
 
 #scrollable-module-container {

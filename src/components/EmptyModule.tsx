@@ -18,7 +18,8 @@ const EmptyModule = ({onClick, selectedSpace, id, moduleType, onDrop, onDragOver
             className={"empty-module-space"}
             onClick={onClick}
             style={{
-                border: selectedSpace === id ? "2px solid white" : "2px solid #67554a"
+                border: selectedSpace === id ? "2px solid white" : "2px solid #67554a",
+                transition: "0.1s ease-in-out"
             }}
             onDrop={onDrop}
             onDragOver={onDragOver}
