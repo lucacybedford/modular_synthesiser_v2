@@ -104,24 +104,42 @@ export class Synthesiser {
         return (a / 32) * (2 ** ((number - 9) / 12));
     }
 
+
+
     public noteOn(note: number, velocity: number, octave: number = 0): void {
-        /*
-        Triggers a note.
-         */
         if (this.synthOn) {
-            this.currentSynth.triggerAttack(this.midiToFreq(note + octave * 12), Tone.now(), velocity / 127);
+            const frequency = this.midiToFreq(note + octave * 12);
+            this.currentSynth.triggerAttack(frequency, Tone.now(), velocity / 127);
             console.log(this.currentSynth.activeVoices);
         }
     }
 
     public noteOff(note: number, octave: number = 0): void {
-        /*
-        Releases a note.
-         */
         if (this.synthOn) {
-            this.currentSynth.triggerRelease(this.midiToFreq(note + octave * 12));
+            const frequency = this.midiToFreq(note + octave * 12);
+            this.currentSynth.triggerRelease(frequency, Tone.now());
         }
     }
+
+
+    // public noteOn(note: number, velocity: number, octave: number = 0): void {
+    //     /*
+    //     Triggers a note.
+    //      */
+    //     if (this.synthOn) {
+    //         this.currentSynth.triggerAttack(this.midiToFreq(note + octave * 12), Tone.now(), velocity / 127);
+    //         console.log(this.currentSynth.activeVoices);
+    //     }
+    // }
+    //
+    // public noteOff(note: number, octave: number = 0): void {
+    //     /*
+    //     Releases a note.
+    //      */
+    //     if (this.synthOn) {
+    //         this.currentSynth.triggerRelease(this.midiToFreq(note + octave * 12));
+    //     }
+    // }
 
     public updateHarmonicityAndModulation(element: keyof typeof this.synthParameters): void {
         /*
@@ -659,6 +677,8 @@ export class Synthesiser {
         console.log("RESET CHAIN: " + this.moduleChain);
         this.connectChain();
     }
+
+
 
     public addModule(moduleType: string): void {
         /*

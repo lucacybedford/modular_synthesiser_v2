@@ -1,16 +1,21 @@
 import { startupMIDI } from "./midi";
 import {Synthesiser} from "../Synthesiser.tsx";
+import * as Tone from "tone";
 
 
-export function startup() {
+function startup() {
     startupMIDI();
     console.log("Startup");
 }
 
+Tone.setContext(new Tone.Context({ latencyHint: 'interactive' }));
+Tone.getContext().lookAhead = 0.001;
 
 export const synth1 = new Synthesiser(1);
 export const synth2 = new Synthesiser(2);
 export const synth3 = new Synthesiser(3);
+
+
 
 startup();
 

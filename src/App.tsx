@@ -17,6 +17,7 @@ import {Synthesiser} from "./Synthesiser.tsx";
 
 let isMIDICompatible = true;
 
+
 if (!navigator.requestMIDIAccess) {
     isMIDICompatible = false;
     console.error("Web MIDI API is not supported in this browser.");
