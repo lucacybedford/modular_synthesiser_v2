@@ -105,7 +105,6 @@ export class Synthesiser {
     }
 
 
-
     public noteOn(note: number, velocity: number, octave: number = 0): void {
         if (this.synthOn) {
             const frequency = this.midiToFreq(note + octave * 12);
@@ -120,26 +119,6 @@ export class Synthesiser {
             this.currentSynth.triggerRelease(frequency, Tone.now());
         }
     }
-
-
-    // public noteOn(note: number, velocity: number, octave: number = 0): void {
-    //     /*
-    //     Triggers a note.
-    //      */
-    //     if (this.synthOn) {
-    //         this.currentSynth.triggerAttack(this.midiToFreq(note + octave * 12), Tone.now(), velocity / 127);
-    //         console.log(this.currentSynth.activeVoices);
-    //     }
-    // }
-    //
-    // public noteOff(note: number, octave: number = 0): void {
-    //     /*
-    //     Releases a note.
-    //      */
-    //     if (this.synthOn) {
-    //         this.currentSynth.triggerRelease(this.midiToFreq(note + octave * 12));
-    //     }
-    // }
 
     public updateHarmonicityAndModulation(element: keyof typeof this.synthParameters): void {
         /*
