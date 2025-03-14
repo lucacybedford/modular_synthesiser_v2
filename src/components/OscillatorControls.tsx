@@ -15,6 +15,8 @@ const ParameterBoard = ({selectedSynth}: OscillatorControlsProps) => {
     const [waveformType, setWaveformType] = useState(synths[selectedSynth].synthParameters.waveform);
     const [modifierType, setModifierType] = useState(synths[selectedSynth].synthParameters.oscillator_type);
 
+    console.log("Modifier: "+synths[selectedSynth].synthParameters.oscillator_type);
+
     const handleSynthChange = (newSynthType: string) => {
         setSynthType(newSynthType);
         synths[selectedSynth].synthParameters.synth = newSynthType;

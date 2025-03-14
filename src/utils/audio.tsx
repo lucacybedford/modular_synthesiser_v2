@@ -18,7 +18,7 @@ synth2.synthParameters.waveform = "triangle";
 synth2.synthParameters.synth = "fmsynth";
 synth2.updateSynth();
 
-synth3.synthParameters.waveform = "fatsine";
+synth3.synthParameters.oscillator_type = "fat";
 synth3.synthParameters.synth = "synth";
 synth3.updateSynth();
 
