@@ -9,7 +9,8 @@ function startup() {
 }
 
 Tone.setContext(new Tone.Context({ latencyHint: 'interactive' }));
-Tone.getContext().lookAhead = 0.001;
+Tone.getContext().lookAhead = 0.01;
+// Tone.getContext().lookAhead = 0.001;
 
 export const synth1 = new Synthesiser(1);
 export const synth2 = new Synthesiser(2);

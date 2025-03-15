@@ -623,27 +623,57 @@ export class Synthesiser {
 
     // ------------ Module Chain Functions ------------
 
-    public connectChain(): void {
-        /*
-        Connects all the modules in the module chain, ignoring nulls
-         */
-        let previousModule: Tone.ToneAudioNode | null = null;
+
+    public connectChain() {
+        const denseChain: Tone.ToneAudioNode[] = [];
 
         for (const module of this.moduleChain) {
             if (module) {
-                if (previousModule) {
-                    previousModule.disconnect();
-                    previousModule.connect(module);
-                }
-                previousModule = module;
+                denseChain.push(module);
             }
         }
 
-        if (previousModule) {
-            previousModule.disconnect();
-            previousModule.toDestination();
+        console.log(denseChain);
+
+
+        for (let i = 0; i < denseChain.length - 1; i++) {
+            const first = denseChain[i];
+            const second = denseChain[i+1];
+            first.disconnect();
+            first.connect(second);
+            if (this.isDelayType(second)) {
+                let y=i+2;
+                while (this.isDelayType(denseChain[y])) {
+                    y+=1;
+                }
+                first.connect(denseChain[y]);
+            }
         }
+        denseChain[denseChain.length - 1].disconnect();
+        denseChain[denseChain.length - 1].toDestination();
     }
+
+    // public connectChain() {
+    //     /*
+    //     Connects all the modules in the module chain, ignoring nulls
+    //      */
+    //     let previousModule: Tone.ToneAudioNode | null = null;
+    //
+    //     for (const module of this.moduleChain) {
+    //         if (module) {
+    //             if (previousModule) {
+    //                 previousModule.disconnect();
+    //                 previousModule.connect(module);
+    //             }
+    //             previousModule = module;
+    //         }
+    //     }
+    //
+    //     if (previousModule) {
+    //         previousModule.disconnect();
+    //         previousModule.toDestination();
+    //     }
+    // }
 
     public resetChain(): void {
         /*
