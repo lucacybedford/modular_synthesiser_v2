@@ -5,12 +5,10 @@ interface ModuleSelectorProps {
 }
 
 const ModuleSelector = ({ onModuleSelect }: ModuleSelectorProps) => {
-    // const moduleTypes = ["oscillator", "filter", "lfo", "envelope"];
 
     const handleDragStart = (event: React.DragEvent<HTMLDivElement>, moduleType: string) => {
         event.dataTransfer.setData("moduleType", moduleType);
         event.dataTransfer.effectAllowed = "move";
-
         onModuleSelect(moduleType);
     };
 
@@ -20,9 +18,9 @@ const ModuleSelector = ({ onModuleSelect }: ModuleSelectorProps) => {
                 <div id={"scrollable-module-container"}>
                     <div className={"horizontal-module-container"}>
                         <div className={"mock-module"}
-                            key={"delay"}
-                            draggable={true}
-                            onDragStart={(e) => handleDragStart(e, "delay")}>Delay</div>
+                             key={"delay"}
+                             draggable={true}
+                             onDragStart={(e) => handleDragStart(e, "delay")}>Delay</div>
                         <div className={"mock-module"}
                              key={"reverb"}
                              draggable={true}

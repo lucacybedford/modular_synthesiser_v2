@@ -6,7 +6,7 @@ import $ from "jquery";
 export class Synthesiser {
     private currentSynth: Tone.PolySynth;
     private readonly limiter: Tone.Limiter;
-    private readonly moduleChain: Tone.ToneAudioNode[];
+    private moduleChain: (Tone.ToneAudioNode | null)[];
     private existingModules: { id: string, instance: Tone.ToneAudioNode }[] = [];
     private synthOn: boolean = false;
     public readonly id: number;
@@ -38,7 +38,7 @@ export class Synthesiser {
 
         this.limiter = new Tone.Limiter(-6);
 
-        this.moduleChain = [this.currentSynth, this.limiter];
+        this.moduleChain = [this.currentSynth, null, null, null, null, null, null, this.limiter];
 
         this.updateSynth();
     }
@@ -236,7 +236,7 @@ export class Synthesiser {
         this.resetCheckboxes();
         switch (number) {
             case 0:
-                this.setPresetRandom();
+                // this.setPresetRandom();
                 break;
             case 1:
                 this.setPreset1();
@@ -264,118 +264,118 @@ export class Synthesiser {
         this.updateSynth();
     }
 
-    public setPresetRandom(): void {
-        /*
-        Randomises which modules are active and all parameters linked to oscillator
-         */
-        let randomIsOn;
-        const notModules = ["bitcrusher", "highpass", "lowpass", "notch", "bandpass", "phaser1", "phaser2", "feedback1", "feedback2", "pingpong1", "pingpong2", "chorus1", "chorus2", "vibrato1", "vibrato2"];
-
-        const synthNumber = (Math.random() * 4).toFixed(0);
-        switch (synthNumber) {
-            case "0":
-                synth1Parameters["synth"] = "synth";
-                $("#synth1").prop("checked", true);
-                break;
-            case "1":
-                synth1Parameters["synth"] = "amsynth";
-                $("#synth2").prop("checked", true);
-                break;
-            case "2":
-                synth1Parameters["synth"] = "fmsynth";
-                $("#synth3").prop("checked", true);
-                break;
-        }
-
-        const waveformNumber = (Math.random() * 7).toFixed(0);
-        switch (waveformNumber) {
-            case "0":
-                synth1Parameters["waveform"] = "sine";
-                $("#waveform1").prop("checked", true);
-                break;
-            case "1":
-                synth1Parameters["waveform"] = "square";
-                $("#waveform2").prop("checked", true);
-                break;
-            case "2":
-                synth1Parameters["waveform"] = "sawtooth";
-                $("#waveform3").prop("checked", true);
-                break;
-            case "3":
-                synth1Parameters["waveform"] = "triangle";
-                $("#waveform4").prop("checked", true);
-                break;
-            case "4":
-                synth1Parameters["waveform"] = "pulse";
-                $("#waveform5").prop("checked", true);
-                break;
-            case "5":
-                synth1Parameters["waveform"] = "pwm";
-                $("#waveform6").prop("checked", true);
-                break;
-        }
-
-        const modifierNumber = (Math.random() * 5).toFixed(0);
-        switch (modifierNumber) {
-            case "0":
-                synth1Parameters["oscillator_type"] = "";
-                $("#modifier1").prop("checked", true);
-                break;
-            case "1":
-                synth1Parameters["oscillator_type"] = "am";
-                $("#modifier2").prop("checked", true);
-                break;
-            case "2":
-                synth1Parameters["oscillator_type"] = "fm";
-                $("#modifier3").prop("checked", true);
-                break;
-            case "3":
-                synth1Parameters["oscillator_type"] = "fat";
-                $("#modifier4").prop("checked", true);
-                break;
-        }
-
-        for (const name of Object.keys(effectValues)) {
-
-            randomIsOn = Math.random();
-            if (randomIsOn > 0.66 && !notModules.includes(name)) {
-                $("#" + name + "-toggle").prop("checked", true);
-
-
-                if (name == "feedback" || name == "pingpong" || name == "chorus" || name == "vibrato" || name == "phaser") {
-                    const name1 = name + "1";
-                    const name2 = name + "2";
-                    const randomValue1 = Math.random();
-                    const randomValue2 = Math.random();
-                    const slider1 = $("#" + name1 + "-slider");
-                    const slider2 = $("#" + name2 + "-slider");
-
-                    const min1 = slider1.attr("min");
-                    const max1 = slider1.attr("max");
-                    const min2 = slider2.attr("min");
-                    const max2 = slider2.attr("max");
-
-                    const step1 = slider1.attr("step");
-                    const step2 = slider2.attr("step");
-                    if (min1 && max1 && min2 && max2 && step1 && step2) {
-                        effectValues[name1] = parseFloat((randomValue1 * parseFloat(max1) + parseFloat(min1)).toFixed(Math.max(0, -Math.log10(parseFloat(step1)))));
-                        effectValues[name2] = parseFloat((randomValue2 * parseFloat(max2) + parseFloat(min2)).toFixed(Math.max(0, -Math.log10(parseFloat(step2)))));
-                    }
-                } else {
-                    const randomValue = Math.random();
-                    const slider = $("#" + name + "-slider");
-                    const min = slider.attr("min");
-                    const max = slider.attr("max");
-                    const step = slider.attr("step");
-
-                    if (min && max && step) {
-                        effectValues[name] = parseFloat((randomValue * parseFloat(max) + parseFloat(min)).toFixed(Math.max(0, -Math.log10(parseFloat(step)))));
-                    }
-                }
-                this.addModule(name);
-            }
-        }
-    }
+    // public setPresetRandom(): void {
+    //     /*
+    //     Randomises which modules are active and all parameters linked to oscillator
+    //      */
+    //     let randomIsOn;
+    //     const notModules = ["bitcrusher", "highpass", "lowpass", "notch", "bandpass", "phaser1", "phaser2", "feedback1", "feedback2", "pingpong1", "pingpong2", "chorus1", "chorus2", "vibrato1", "vibrato2"];
+    //
+    //     const synthNumber = (Math.random() * 4).toFixed(0);
+    //     switch (synthNumber) {
+    //         case "0":
+    //             synth1Parameters["synth"] = "synth";
+    //             $("#synth1").prop("checked", true);
+    //             break;
+    //         case "1":
+    //             synth1Parameters["synth"] = "amsynth";
+    //             $("#synth2").prop("checked", true);
+    //             break;
+    //         case "2":
+    //             synth1Parameters["synth"] = "fmsynth";
+    //             $("#synth3").prop("checked", true);
+    //             break;
+    //     }
+    //
+    //     const waveformNumber = (Math.random() * 7).toFixed(0);
+    //     switch (waveformNumber) {
+    //         case "0":
+    //             synth1Parameters["waveform"] = "sine";
+    //             $("#waveform1").prop("checked", true);
+    //             break;
+    //         case "1":
+    //             synth1Parameters["waveform"] = "square";
+    //             $("#waveform2").prop("checked", true);
+    //             break;
+    //         case "2":
+    //             synth1Parameters["waveform"] = "sawtooth";
+    //             $("#waveform3").prop("checked", true);
+    //             break;
+    //         case "3":
+    //             synth1Parameters["waveform"] = "triangle";
+    //             $("#waveform4").prop("checked", true);
+    //             break;
+    //         case "4":
+    //             synth1Parameters["waveform"] = "pulse";
+    //             $("#waveform5").prop("checked", true);
+    //             break;
+    //         case "5":
+    //             synth1Parameters["waveform"] = "pwm";
+    //             $("#waveform6").prop("checked", true);
+    //             break;
+    //     }
+    //
+    //     const modifierNumber = (Math.random() * 5).toFixed(0);
+    //     switch (modifierNumber) {
+    //         case "0":
+    //             synth1Parameters["oscillator_type"] = "";
+    //             $("#modifier1").prop("checked", true);
+    //             break;
+    //         case "1":
+    //             synth1Parameters["oscillator_type"] = "am";
+    //             $("#modifier2").prop("checked", true);
+    //             break;
+    //         case "2":
+    //             synth1Parameters["oscillator_type"] = "fm";
+    //             $("#modifier3").prop("checked", true);
+    //             break;
+    //         case "3":
+    //             synth1Parameters["oscillator_type"] = "fat";
+    //             $("#modifier4").prop("checked", true);
+    //             break;
+    //     }
+    //
+    //     for (const name of Object.keys(effectValues)) {
+    //
+    //         randomIsOn = Math.random();
+    //         if (randomIsOn > 0.66 && !notModules.includes(name)) {
+    //             $("#" + name + "-toggle").prop("checked", true);
+    //
+    //
+    //             if (name == "feedback" || name == "pingpong" || name == "chorus" || name == "vibrato" || name == "phaser") {
+    //                 const name1 = name + "1";
+    //                 const name2 = name + "2";
+    //                 const randomValue1 = Math.random();
+    //                 const randomValue2 = Math.random();
+    //                 const slider1 = $("#" + name1 + "-slider");
+    //                 const slider2 = $("#" + name2 + "-slider");
+    //
+    //                 const min1 = slider1.attr("min");
+    //                 const max1 = slider1.attr("max");
+    //                 const min2 = slider2.attr("min");
+    //                 const max2 = slider2.attr("max");
+    //
+    //                 const step1 = slider1.attr("step");
+    //                 const step2 = slider2.attr("step");
+    //                 if (min1 && max1 && min2 && max2 && step1 && step2) {
+    //                     effectValues[name1] = parseFloat((randomValue1 * parseFloat(max1) + parseFloat(min1)).toFixed(Math.max(0, -Math.log10(parseFloat(step1)))));
+    //                     effectValues[name2] = parseFloat((randomValue2 * parseFloat(max2) + parseFloat(min2)).toFixed(Math.max(0, -Math.log10(parseFloat(step2)))));
+    //                 }
+    //             } else {
+    //                 const randomValue = Math.random();
+    //                 const slider = $("#" + name + "-slider");
+    //                 const min = slider.attr("min");
+    //                 const max = slider.attr("max");
+    //                 const step = slider.attr("step");
+    //
+    //                 if (min && max && step) {
+    //                     effectValues[name] = parseFloat((randomValue * parseFloat(max) + parseFloat(min)).toFixed(Math.max(0, -Math.log10(parseFloat(step)))));
+    //                 }
+    //             }
+    //             this.addModule(name);
+    //         }
+    //     }
+    // }
 
     public setPreset1(): void {
         /*
@@ -410,9 +410,9 @@ export class Synthesiser {
         $("#modifier4").prop("checked", true);
 
         $("#reverb-toggle").prop("checked", true);
-        this.addModule("reverb");
+        this.addModule("reverb", 1);
         $("#pingpong-toggle").prop("checked", true);
-        this.addModule("pingpong");
+        this.addModule("pingpong", 2);
     }
 
     public setPreset2(): void {
@@ -444,11 +444,11 @@ export class Synthesiser {
         $("#modifier1").prop("checked", true);
 
         $("#lowpass-toggle").prop("checked", true);
-        this.addModule("lowpass");
+        this.addModule("lowpass", 1);
         $("#feedback-toggle").prop("checked", true);
-        this.addModule("feedback");
+        this.addModule("feedback", 2);
         $("#widener-toggle").prop("checked", true);
-        this.addModule("widener");
+        this.addModule("widener", 3);
     }
 
     public setPreset3(): void {
@@ -478,9 +478,9 @@ export class Synthesiser {
         $("#modifier3").prop("checked", true);
 
         $("#lowpass-toggle").prop("checked", true);
-        this.addModule("lowpass");
+        this.addModule("lowpass", 1);
         $("#wah-toggle").prop("checked", true);
-        this.addModule("wah");
+        this.addModule("wah", 2);
     }
 
     public setPreset4(): void {
@@ -514,13 +514,13 @@ export class Synthesiser {
         $("#modifier1").prop("checked", true);
 
         $("#reverb-toggle").prop("checked", true);
-        this.addModule("reverb");
+        this.addModule("reverb", 1);
         $("#feedback-toggle").prop("checked", true);
-        this.addModule("feedback");
+        this.addModule("feedback", 2);
         $("#wah-toggle").prop("checked", true);
-        this.addModule("wah");
+        this.addModule("wah", 3);
         $("#phaser-toggle").prop("checked", true);
-        this.addModule("phaser");
+        this.addModule("phaser", 4);
     }
 
     public setPreset5(): void {
@@ -549,7 +549,7 @@ export class Synthesiser {
         $("#modifier3").prop("checked", true);
 
         $("#reverb-toggle").prop("checked", true);
-        this.addModule("reverb");
+        this.addModule("reverb", 1);
     }
 
     public setPreset6(): void {
@@ -585,15 +585,15 @@ export class Synthesiser {
 
 
         $("#chorus-toggle").prop("checked", true);
-        this.addModule("chorus");
+        this.addModule("chorus", 1);
         $("#distortion-toggle").prop("checked", true);
-        this.addModule("distortion");
+        this.addModule("distortion", 2);
         $("#widener-toggle").prop("checked", true);
-        this.addModule("widener");
+        this.addModule("widener", 3);
         $("#vibrato-toggle").prop("checked", true);
-        this.addModule("vibrato");
+        this.addModule("vibrato", 4);
         $("#reverb-toggle").prop("checked", true);
-        this.addModule("reverb");
+        this.addModule("reverb", 5);
     }
 
 
@@ -625,22 +625,24 @@ export class Synthesiser {
 
     public connectChain(): void {
         /*
-        Connects all the modules in the module chain
+        Connects all the modules in the module chain, ignoring nulls
          */
-        for (let i = 0; i < this.moduleChain.length - 1; i++) {
-            const first = this.moduleChain[i];
-            const second = this.moduleChain[i + 1];
-            first.disconnect();
-            first.connect(second);
-            if (this.isDelayType(second)) {
-                let y = i + 2;
-                while (this.isDelayType(this.moduleChain[y])) {
-                    y += 1;
+        let previousModule: Tone.ToneAudioNode | null = null;
+
+        for (const module of this.moduleChain) {
+            if (module) {
+                if (previousModule) {
+                    previousModule.disconnect();
+                    previousModule.connect(module);
                 }
-                first.connect(this.moduleChain[y]);
+                previousModule = module;
             }
         }
-        this.moduleChain[this.moduleChain.length - 1].toDestination();
+
+        if (previousModule) {
+            previousModule.disconnect();
+            previousModule.toDestination();
+        }
     }
 
     public resetChain(): void {
@@ -650,8 +652,10 @@ export class Synthesiser {
         console.log("RESETTING CHAIN of length " + this.moduleChain.length);
         const originalChainLength = this.moduleChain.length;
         for (let i = 1; i < originalChainLength - 1; i++) {
-            console.log("removing " + this.moduleChain[1]);
-            this.removeModule({ moduleObject: this.moduleChain[1] })
+            if (this.moduleChain[i]) {
+                console.log("removing " + this.moduleChain[i]);
+                this.removeModule(i);
+            }
         }
         console.log("RESET CHAIN: " + this.moduleChain);
         this.connectChain();
@@ -659,7 +663,7 @@ export class Synthesiser {
 
 
 
-    public addModule(moduleType: string): void {
+    public addModule(moduleType: string, spaceId: number): void {
         /*
         Adds a module to the module chain
          */
@@ -720,49 +724,17 @@ export class Synthesiser {
         }
         this.existingModules.push({ id: moduleType, instance: module });
 
-        this.moduleChain.pop();
-        this.moduleChain.push(module);
-        this.moduleChain.push(this.limiter);
+        this.moduleChain[spaceId] = module;
 
         this.connectChain();
         console.log(this.moduleChain);
     }
 
-    public removeModule({ moduleType, moduleObject }: { moduleType?: string; moduleObject?: Tone.ToneAudioNode }): void {
-        /*
-        Removes a module based on the object or module type passed in
-         */
-        if (moduleObject) {
-            const moduleIndex = this.existingModules.findIndex(module => module.instance === moduleObject);
-            if (moduleIndex === -1) {
-                console.warn(`Module ${moduleType} not found`);
-                return;
-            }
-
-            this.existingModules.splice(moduleIndex, 1);
-
-            const chainIndex = this.moduleChain.indexOf(moduleObject);
-            if (chainIndex === -1) {
-                console.warn(`Module ${moduleType} not found`);
-                return;
-            }
-            moduleObject.dispose();
-            this.moduleChain.splice(chainIndex, 1);
-        } else if (moduleType) {
-            const moduleIndex = this.existingModules.findIndex(module => module.id == moduleType);
-            if (moduleIndex === -1) {
-                console.warn(`Module ${moduleType} not found`);
-                return;
-            }
-
-            const { instance } = this.existingModules[moduleIndex];
-            this.existingModules.splice(moduleIndex, 1);
-
-            const chainIndex = this.moduleChain.indexOf(instance);
-            if (chainIndex !== -1) {
-                instance.dispose();
-                this.moduleChain.splice(chainIndex, 1);
-            }
+    public removeModule(spaceId: number): void {
+        const moduleToRemove = this.moduleChain[spaceId];
+        if (moduleToRemove) {
+            moduleToRemove.dispose();
+            this.moduleChain[spaceId] = null;
         }
 
         this.connectChain();
@@ -775,5 +747,9 @@ export class Synthesiser {
          */
         const delayNames = ["Delay", "FeedbackDelay", "PingPongDelay"]
         return delayNames.includes(module.name);
+    }
+
+    public getModuleChain(): (Tone.ToneAudioNode | null)[] {
+        return this.moduleChain;
     }
 }

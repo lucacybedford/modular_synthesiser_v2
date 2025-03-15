@@ -2,8 +2,8 @@ import React from "react";
 import Switch from "./Switch.tsx";
 import Module from "./Module";
 import EmptyModule from "./EmptyModule";
-import {synth1, synth2, synth3} from "../utils/audio.tsx";
-import {Synthesiser} from "../Synthesiser.tsx";
+import { synth1, synth2, synth3 } from "../utils/audio.tsx";
+import { Synthesiser } from "../Synthesiser.tsx";
 
 interface ModuleBoardProps {
     onSynthSelect: (synth: Synthesiser) => void;
@@ -16,12 +16,14 @@ interface ModuleBoardProps {
 
 const ModuleBoard = ({ onSynthSelect, selectedSpace, onSpaceSelect, modules, addModule, removeModule }: ModuleBoardProps) => {
 
-
     const handleDrop = (event: React.DragEvent<HTMLDivElement>, spaceId: number) => {
         event.preventDefault();
         const moduleType = event.dataTransfer.getData("moduleType");
         console.log(`Module ${moduleType} dropped on space ${spaceId}`);
-        addModule(spaceId, moduleType);
+
+        if (moduleType) {
+            addModule(spaceId, moduleType);
+        }
     };
 
     const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
@@ -51,7 +53,7 @@ const ModuleBoard = ({ onSynthSelect, selectedSpace, onSpaceSelect, modules, add
                                     synth1.updateSynth();
                                 }
                             }
-                        }/>
+                        } />
                     </div>
                     <div className={"module-container"}>
                         <Module onClick={
@@ -132,7 +134,7 @@ const ModuleBoard = ({ onSynthSelect, selectedSpace, onSpaceSelect, modules, add
                                     synth2.updateSynth();
                                 }
                             }
-                        }/>
+                        } />
                     </div>
                     <div className={"module-container"}>
                         <Module onClick={
@@ -212,7 +214,7 @@ const ModuleBoard = ({ onSynthSelect, selectedSpace, onSpaceSelect, modules, add
                                     synth3.updateSynth();
                                 }
                             }
-                        }/>
+                        } />
                     </div>
                     <div className={"module-container"}>
                         <Module onClick={

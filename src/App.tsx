@@ -30,7 +30,7 @@ function App() {
 
     const [selectedSynth, setSelectedSynth] = useState<Synthesiser | null>(null);
     const [selectedSpace, setSelectedSpace] = useState<number | null>(null);
-    const [, setSelectedModule] = useState<string | null>(null);
+    const [, setSelectedModuleType] = useState<string | null>(null);
     const [modules, setModules] = useState<{[key: number]: string | null}>({});
 
 
@@ -88,37 +88,85 @@ function App() {
     };
 
     const handleModuleSelection = (moduleType: string) => {
-        setSelectedModule(moduleType);
+        setSelectedModuleType(moduleType);
         console.log(`Module ${moduleType} selected`);
     };
 
 
     const addModule = (spaceId: number, moduleType: string) => {
+
+        // let synth: Synthesiser = synth1;
+        // let row = 0;
+        // if (spaceId < 7) {
+        //     synth = synth1;
+        //     row = 0;
+        // } else if (spaceId > 6 && spaceId < 13) {
+        //     synth = synth2;
+        //     row = 1;
+        // } else if (spaceId > 12) {
+        //     synth = synth3;
+        //     row = 2;
+        // }
+
+        const {synth, row} = getSynthRow(spaceId);
+
+        synth.addModule(moduleType, spaceId - row*6);
         setModules(prevModules => ({
             ...prevModules,
             [spaceId]: moduleType
         }));
-        console.log(`Adding module ${moduleType} to space ${spaceId}`);
 
-        if (spaceId < 7) {
-            console.log("Row 1");
-        } else if (spaceId > 6 && spaceId < 13) {
-            console.log("Row 2");
-        } else if (spaceId > 12) {
-            console.log("Row 3");
-        }
-
-        // logic to add module to module chain
     };
 
     const removeModule = (spaceId: number) => {
+
+        const moduleToRemove = modules[spaceId];
+        if (!moduleToRemove) {
+            console.warn("No module in this slot to remove.");
+            return;
+        }
+
+
+        // let synth: Synthesiser = synth1;
+        // let row = 0;
+        // if (spaceId < 7) {
+        //     synth = synth1;
+        //     row = 0;
+        // } else if (spaceId > 6 && spaceId < 13) {
+        //     synth = synth2;
+        //     row = 1;
+        // } else if (spaceId > 12) {
+        //     synth = synth3;
+        //     row = 2;
+        // }
+
+        const {synth, row} = getSynthRow(spaceId);
+
+        // synth.removeModule({moduleType: moduleToRemove} moduleToRemove, spaceId - row*6);
+        synth.removeModule(spaceId - row * 6);
         setModules(prevModules => {
             const newModules = {...prevModules};
             delete newModules[spaceId];
             return newModules;
         });
-        console.log(`Removing module from space ${spaceId}`);
     };
+
+    const getSynthRow = (spaceId: number) => {
+        let synth: Synthesiser = synth1;
+        let row = 0;
+        if (spaceId < 7) {
+            synth = synth1;
+            row = 0;
+        } else if (spaceId > 6 && spaceId < 13) {
+            synth = synth2;
+            row = 1;
+        } else if (spaceId > 12) {
+            synth = synth3;
+            row = 2;
+        }
+
+        return {synth, row};
+    }
 
 
     return (
@@ -143,6 +191,7 @@ function App() {
             </div>
             <div id={"horizontal-container"}>
                 <div id={"vertical-container"}>
+                    {/*{error && <div className="error-message">{error}</div>}*/}
                     <ModuleBoard
                         onSynthSelect = {handleSynthSelection}
                         selectedSpace={selectedSpace}
