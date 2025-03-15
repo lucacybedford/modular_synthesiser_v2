@@ -101,7 +101,6 @@ function App() {
             ...prevModules,
             [spaceId]: moduleType
         }));
-
     };
 
     const removeModule = (spaceId: number) => {
