@@ -91,14 +91,14 @@ export const effectValues: Record<string, number> = {
     "chorus1": 10,
     "chorus2": 1,
     "distortion": 0.5,
-    "wah": 1,
+    "wah": 8,
     "phaser": 0,
     "phaser1": 1,
     "phaser2": 1,
-    "widener": 0.5,
+    "widener": 0.8,
     "vibrato": 0,
     "vibrato1": 5,
     "vibrato2": 0.1,
     "bitcrusher": 4,
-    "chebyshev": 1
+    "chebyshev": 3
 };

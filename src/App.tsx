@@ -94,20 +94,6 @@ function App() {
 
 
     const addModule = (spaceId: number, moduleType: string) => {
-
-        // let synth: Synthesiser = synth1;
-        // let row = 0;
-        // if (spaceId < 7) {
-        //     synth = synth1;
-        //     row = 0;
-        // } else if (spaceId > 6 && spaceId < 13) {
-        //     synth = synth2;
-        //     row = 1;
-        // } else if (spaceId > 12) {
-        //     synth = synth3;
-        //     row = 2;
-        // }
-
         const {synth, row} = getSynthRow(spaceId);
 
         synth.addModule(moduleType, spaceId - row*6);
@@ -126,23 +112,8 @@ function App() {
             return;
         }
 
-
-        // let synth: Synthesiser = synth1;
-        // let row = 0;
-        // if (spaceId < 7) {
-        //     synth = synth1;
-        //     row = 0;
-        // } else if (spaceId > 6 && spaceId < 13) {
-        //     synth = synth2;
-        //     row = 1;
-        // } else if (spaceId > 12) {
-        //     synth = synth3;
-        //     row = 2;
-        // }
-
         const {synth, row} = getSynthRow(spaceId);
 
-        // synth.removeModule({moduleType: moduleToRemove} moduleToRemove, spaceId - row*6);
         synth.removeModule(spaceId - row * 6);
         setModules(prevModules => {
             const newModules = {...prevModules};
@@ -191,7 +162,6 @@ function App() {
             </div>
             <div id={"horizontal-container"}>
                 <div id={"vertical-container"}>
-                    {/*{error && <div className="error-message">{error}</div>}*/}
                     <ModuleBoard
                         onSynthSelect = {handleSynthSelection}
                         selectedSpace={selectedSpace}
