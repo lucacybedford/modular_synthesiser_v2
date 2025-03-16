@@ -10,6 +10,7 @@ import ModuleBoard from "./components/ModuleBoard";
 import ParameterBoard from "./components/ParameterBoard";
 import ModuleSelector from "./components/ModuleSelector";
 import logo from './assets/logo.png';
+import github from './assets/github_icon.png';
 import { keyToNote } from "./utils/constants";
 import { synth1, synth2, synth3 } from "./utils/audio.tsx";
 import {Synthesiser} from "./Synthesiser.tsx";
@@ -153,6 +154,41 @@ function App() {
                     }}
                 />
                 <h1>SynthWeb - Modular Synthesiser</h1>
+                {/*<img*/}
+                {/*    src={github}*/}
+                {/*    alt={"GitHub"}*/}
+                {/*    style={{*/}
+                {/*        height: '60%',*/}
+                {/*        width: 'auto',*/}
+                {/*        borderRadius: '25%',*/}
+                {/*        marginLeft: 'auto',*/}
+                {/*        marginRight: '6px'*/}
+                {/*    }}*/}
+                {/*/>*/}
+
+                <a
+                    href="https://github.com/lucacybedford/modular_synthesiser_v2"
+                    target={"_blank"}
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        borderRadius: '25%',
+                        marginLeft: 'auto',
+                        marginRight: '6px',
+                        height: '60%'
+                    }}
+                >
+                    <img
+                        src={github}
+                        alt="GitHub"
+                        style={{
+                            height: '100%',
+                            width: 'auto',
+                            borderRadius: '25%',
+                            cursor: 'pointer',
+                        }}
+                    />
+                </a>
                 {!isMIDICompatible && (
                     <div id={"MIDI-warning"}>
                         This browser does not support Web MIDI API.
