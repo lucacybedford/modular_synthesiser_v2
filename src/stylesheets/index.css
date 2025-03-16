@@ -192,6 +192,7 @@ html, body {
   border-radius: 15px;
   background-color: #67554a;
   box-shadow: 0 0 15px 0 rgb(0, 0, 0, 0.4) inset;
+  cursor: pointer;
 }
 
 .empty-module-space:active {
@@ -217,6 +218,7 @@ html, body {
   width: 30%;
   border-radius: 15px;
   background-color: #dab9a4;
+  cursor: pointer;
 }
 
 .mock-module:hover {
