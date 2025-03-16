@@ -23,6 +23,16 @@
     align-items: center;
 }
 
+.back-colour-board {
+    height: 100%;
+    aspect-ratio: 0.6;
+    background-color: #aaaaaa;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .back-colour:hover {
     cursor: pointer;
     transition: 0.2s ease-in-out;

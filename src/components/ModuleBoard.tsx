@@ -59,8 +59,9 @@ const ModuleBoard = ({ onSynthSelect, selectedSpace, onSpaceSelect, modules, add
                         <Module onClick={
                             () => {
                                 onSynthSelect(synth1);
+                                onSpaceSelect(100);
                             }
-                        }></Module>
+                        } id = {100} selectedSpace = {selectedSpace}></Module>
                         <EmptyModule
                             onClick={() => onSpaceSelect(1)}
                             selectedSpace={selectedSpace}
@@ -140,8 +141,9 @@ const ModuleBoard = ({ onSynthSelect, selectedSpace, onSpaceSelect, modules, add
                         <Module onClick={
                             () => {
                                 onSynthSelect(synth2);
+                                onSpaceSelect(200);
                             }
-                        }></Module>
+                        } id = {200} selectedSpace = {selectedSpace}></Module>
                         <EmptyModule
                             onClick={() => onSpaceSelect(7)}
                             selectedSpace={selectedSpace}
@@ -220,8 +222,9 @@ const ModuleBoard = ({ onSynthSelect, selectedSpace, onSpaceSelect, modules, add
                         <Module onClick={
                             () => {
                                 onSynthSelect(synth3);
+                                onSpaceSelect(300);
                             }
-                        }></Module>
+                        } id = {300} selectedSpace = {selectedSpace}></Module>
                         <EmptyModule
                             onClick={() => onSpaceSelect(13)}
                             selectedSpace={selectedSpace}

@@ -195,10 +195,6 @@ html, body {
   cursor: pointer;
 }
 
-.empty-module-space:active {
-  border: 2px solid white;
-}
-
 .module-space {
   display: flex;
   flex-direction: row;
@@ -209,44 +205,8 @@ html, body {
   border-radius: 15px;
 }
 
-.mock-module {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  aspect-ratio: 0.6;
-  width: 30%;
-  border-radius: 15px;
-  background-color: #dab9a4;
-  cursor: pointer;
-}
 
-.mock-module:hover {
-  background-color: #c5a692;
-  transition: 0.2s ease-in-out;
-}
 
-#scrollable-module-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  margin: 1px;
-  padding-bottom: 25px;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.horizontal-module-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 100%;
-  padding-top: 25px;
-}
 
 h1 {
   align-self: center;

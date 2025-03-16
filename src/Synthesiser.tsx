@@ -653,28 +653,6 @@ export class Synthesiser {
         denseChain[denseChain.length - 1].toDestination();
     }
 
-    // public connectChain() {
-    //     /*
-    //     Connects all the modules in the module chain, ignoring nulls
-    //      */
-    //     let previousModule: Tone.ToneAudioNode | null = null;
-    //
-    //     for (const module of this.moduleChain) {
-    //         if (module) {
-    //             if (previousModule) {
-    //                 previousModule.disconnect();
-    //                 previousModule.connect(module);
-    //             }
-    //             previousModule = module;
-    //         }
-    //     }
-    //
-    //     if (previousModule) {
-    //         previousModule.disconnect();
-    //         previousModule.toDestination();
-    //     }
-    // }
-
     public resetChain(): void {
         /*
         Removes all modules from module chain

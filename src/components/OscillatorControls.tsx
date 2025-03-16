@@ -40,9 +40,6 @@ const ParameterBoard = ({selectedSynth}: OscillatorControlsProps) => {
 
     return (
         <div id={"parameters-container"}>
-            <div id={"synth-number"}>
-                <h3>{ selectedSynth + 1 }</h3>
-            </div>
             <div className={"parameter-column"}>
                 <div className={"column-title"}>
                     <h3 className={"parameter-titles"}>Synthesiser</h3>

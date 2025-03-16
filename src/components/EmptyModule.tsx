@@ -1,4 +1,6 @@
 import React from "react";
+import BoardModule from "./BoardModule.tsx";
+import "../stylesheets/module.css";
 
 interface EmptyModuleProps {
     onClick?: (e: React.MouseEvent<HTMLInputElement>) => void;
@@ -12,28 +14,41 @@ interface EmptyModuleProps {
 
 const EmptyModule = ({onClick, selectedSpace, id, moduleType, onDrop, onDragOver, onContextMenu}: EmptyModuleProps) => {
 
-
-    return (
-        <div
-            className={"empty-module-space"}
-            onClick={onClick}
-            style={{
-                border: selectedSpace === id ? "2px solid white" : "2px solid #67554a",
-                transition: "0.1s ease-in-out"
-            }}
-            onDrop={onDrop}
-            onDragOver={onDragOver}
-            onContextMenu={onContextMenu}
-        >
-            {moduleType ? (
-                <div>
-                    {moduleType} Module
-                </div>
-            ) : (
-                "Empty"
-            )}
-        </div>
-    );
+    if (moduleType) {
+        return (
+            <div
+                className={"empty-module-space"}
+                onClick={onClick}
+                style={{
+                    outline: selectedSpace === id ? "2px solid white" : "none",
+                    outlineOffset: "2px",
+                    transition: "0.1s ease-in-out",
+                }}
+                onDrop={onDrop}
+                onDragOver={onDragOver}
+                onContextMenu={onContextMenu}
+            >
+                <BoardModule moduleType={moduleType}/>
+            </div>
+        )
+    } else {
+        return (
+            <div
+                className={"empty-module-space"}
+                onClick={onClick}
+                style={{
+                    // border: "2px solid black",
+                    border: "2px solid #67554a",
+                    outline: selectedSpace === id ? "2px solid white" : "none",
+                    outlineOffset: "2px",
+                    transition: "0.1s ease-in-out",
+                }}
+                onDrop={onDrop}
+                onDragOver={onDragOver}
+                onContextMenu={onContextMenu}
+            />
+        )
+    }
 };
 
 export default EmptyModule;

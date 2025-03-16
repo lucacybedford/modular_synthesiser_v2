@@ -154,17 +154,6 @@ function App() {
                     }}
                 />
                 <h1>SynthWeb - Modular Synthesiser</h1>
-                {/*<img*/}
-                {/*    src={github}*/}
-                {/*    alt={"GitHub"}*/}
-                {/*    style={{*/}
-                {/*        height: '60%',*/}
-                {/*        width: 'auto',*/}
-                {/*        borderRadius: '25%',*/}
-                {/*        marginLeft: 'auto',*/}
-                {/*        marginRight: '6px'*/}
-                {/*    }}*/}
-                {/*/>*/}
 
                 <a
                     href="https://github.com/lucacybedford/modular_synthesiser_v2"
