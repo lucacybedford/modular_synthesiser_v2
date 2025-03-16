@@ -22,7 +22,7 @@ const EmptyModule = ({onClick, selectedSpace, id, moduleType, onDrop, onDragOver
                 style={{
                     outline: selectedSpace === id ? "2px solid white" : "none",
                     outlineOffset: "2px",
-                    transition: "0.1s ease-in-out",
+                    transition: "0.2s ease-in-out",
                 }}
                 onDrop={onDrop}
                 onDragOver={onDragOver}
@@ -41,7 +41,7 @@ const EmptyModule = ({onClick, selectedSpace, id, moduleType, onDrop, onDragOver
                     border: "2px solid #67554a",
                     outline: selectedSpace === id ? "2px solid white" : "none",
                     outlineOffset: "2px",
-                    transition: "0.1s ease-in-out",
+                    transition: "0.2s ease-in-out",
                 }}
                 onDrop={onDrop}
                 onDragOver={onDragOver}

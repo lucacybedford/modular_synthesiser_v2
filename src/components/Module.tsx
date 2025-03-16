@@ -13,7 +13,7 @@ const Module = ({onClick, selectedSpace, id}: SwitchProps) => {
              style={{
                 outline: selectedSpace === id ? "2px solid white" : "none",
                 outlineOffset: "2px",
-                transition: "0.1s ease-in-out",
+                transition: "0.2s ease-in-out",
             }}>
             <div className={"outerblack"}>
                 <div className="screen"></div>

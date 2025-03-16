@@ -39,6 +39,12 @@
     filter: brightness(0.9);
 }
 
+.back-colour-board:hover {
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    filter: brightness(0.9);
+}
+
 .screen {
     width: 100%;
     aspect-ratio: 2;
