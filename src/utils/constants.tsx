@@ -76,9 +76,9 @@ export const synthEnvelope = {
 
 export const effectValues: Record<string, number> = {
     "highpass": 1000,
-    "lowpass": 1000,
-    "bandpass": 1000,
-    "notch": 1000,
+    "lowpass": 500,
+    "bandpass": 600,
+    "notch": 700,
     "delay": 0.5,
     "reverb": 1,
     "feedback": 0,
