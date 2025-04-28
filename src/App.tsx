@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import './stylesheets/App.css';
 import './stylesheets/index.css';
 import './stylesheets/switch.css';
 import './stylesheets/module.css';

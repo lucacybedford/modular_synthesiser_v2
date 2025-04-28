@@ -1,16 +1,3 @@
-/*button {*/
-/*    border-radius: 8px;*/
-/*    border: 2px solid white;*/
-/*    padding: 0.3em 0.6em;*/
-/*    width: 100%;*/
-/*    font-size: 0.5em;*/
-/*    font-weight: 500;*/
-/*    font-family: inherit;*/
-/*    background-color: #c2a38f;*/
-/*    cursor: pointer;*/
-/*    margin: 3px;*/
-/*    transition: background 0.3s;*/
-/*}*/
 
 button:hover {
     background-color: #957d6f;

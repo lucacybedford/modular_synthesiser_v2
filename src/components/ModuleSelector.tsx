@@ -14,7 +14,7 @@ const ModuleSelector = ({ onModuleSelect }: ModuleSelectorProps) => {
         event.dataTransfer.setData("moduleType", moduleType);
         event.dataTransfer.effectAllowed = "move";
         onModuleSelect(moduleType);
-    };
+    };  
 
     return (
         <div id={"module-selector-container"}>

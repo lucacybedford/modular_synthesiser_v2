@@ -1,13 +1,14 @@
 import * as Tone from "tone";
-import { effectValues, synthEnvelope, synth1Parameters } from "./utils/constants";
+// import { effectValues, synthEnvelope, synth1Parameters } from "./utils/constants";
+import { effectValues } from "./utils/constants.tsx"
 import { EffectTypes, EnvelopeTypes } from "./utils/types";
 import $ from "jquery";
 
 export class Synthesiser {
     private currentSynth: Tone.PolySynth;
     private readonly limiter: Tone.Limiter;
-    private moduleChain: (Tone.ToneAudioNode | null)[];
-    private existingModules: { id: string, instance: Tone.ToneAudioNode }[] = [];
+    private readonly moduleChain: (Tone.ToneAudioNode | null)[];
+    // private existingModules: { id: string, instance: Tone.ToneAudioNode }[] = [];
     private synthOn: boolean = false;
     public readonly id: number;
 
@@ -120,27 +121,27 @@ export class Synthesiser {
         }
     }
 
-    public updateHarmonicityAndModulation(element: keyof typeof this.synthParameters): void {
-        /*
-        Updates the harmonicity and modulation index for AM and FM synths
-         */
-        console.log(`Updating slider ${element}`);
-        if (this.synthParameters.synth == "amsynth") {
-            if (element == "harmonicity") {
-                (this.currentSynth as Tone.PolySynth<Tone.AMSynth>).set({ harmonicity: this.synthParameters.harmonicity })
-            }
-        }
-
-        else if (this.synthParameters.synth == "fmsynth") {
-            if (element == "harmonicity") {
-                (this.currentSynth as Tone.PolySynth<Tone.FMSynth>).set({ harmonicity: this.synthParameters.harmonicity })
-            }
-
-            else if (element == "modulation_index") {
-                (this.currentSynth as Tone.PolySynth<Tone.FMSynth>).set({ modulationIndex: this.synthParameters.modulation_index })
-            }
-        }
-    }
+    // public updateHarmonicityAndModulation(element: keyof typeof this.synthParameters): void {
+    //     /*
+    //     Updates the harmonicity and modulation index for AM and FM synths
+    //      */
+    //     console.log(`Updating slider ${element}`);
+    //     if (this.synthParameters.synth == "amsynth") {
+    //         if (element == "harmonicity") {
+    //             (this.currentSynth as Tone.PolySynth<Tone.AMSynth>).set({ harmonicity: this.synthParameters.harmonicity })
+    //         }
+    //     }
+    //
+    //     else if (this.synthParameters.synth == "fmsynth") {
+    //         if (element == "harmonicity") {
+    //             (this.currentSynth as Tone.PolySynth<Tone.FMSynth>).set({ harmonicity: this.synthParameters.harmonicity })
+    //         }
+    //
+    //         else if (element == "modulation_index") {
+    //             (this.currentSynth as Tone.PolySynth<Tone.FMSynth>).set({ modulationIndex: this.synthParameters.modulation_index })
+    //         }
+    //     }
+    // }
 
     public updateEnvelope(element: EnvelopeTypes): void {
         /*
@@ -228,41 +229,41 @@ export class Synthesiser {
     }
 
 
-    public setPreset(number: number): void {
-        /*
-        Sets the correct modules and parameters for each preset
-         */
-        this.resetChain();
-        this.resetCheckboxes();
-        switch (number) {
-            case 0:
-                // this.setPresetRandom();
-                break;
-            case 1:
-                this.setPreset1();
-                break;
-            case 2:
-                this.setPreset2();
-                break;
-            case 3:
-                this.setPreset3();
-                break;
-            case 4:
-                this.setPreset4();
-                break;
-            case 5:
-                this.setPreset5();
-                break;
-            case 6:
-                this.setPreset6();
-                break;
-            default:
-                break;
-        }
-        this.setSliders();
-        this.connectChain();
-        this.updateSynth();
-    }
+    // public setPreset(number: number): void {
+    //     /*
+    //     Sets the correct modules and parameters for each preset
+    //      */
+    //     this.resetChain();
+    //     this.resetCheckboxes();
+    //     switch (number) {
+    //         case 0:
+    //             // this.setPresetRandom();
+    //             break;
+    //         case 1:
+    //             this.setPreset1();
+    //             break;
+    //         case 2:
+    //             this.setPreset2();
+    //             break;
+    //         case 3:
+    //             this.setPreset3();
+    //             break;
+    //         case 4:
+    //             this.setPreset4();
+    //             break;
+    //         case 5:
+    //             this.setPreset5();
+    //             break;
+    //         case 6:
+    //             this.setPreset6();
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    //     this.setSliders();
+    //     this.connectChain();
+    //     this.updateSynth();
+    // }
 
     // public setPresetRandom(): void {
     //     /*
@@ -377,249 +378,249 @@ export class Synthesiser {
     //     }
     // }
 
-    public setPreset1(): void {
-        /*
-        All settings for preset 1
-         */
-        Object.assign(synth1Parameters, {
-            "synth": "synth",
-            "waveform": "sine",
-            "oscillator_type": "fat",
-            "partials1": 0,
-            "partials2": 0,
-            "partials3": 0,
-            "partials4": 0
-        });
-
-        Object.assign(synthEnvelope, {
-            "attack": 0.005,
-            "decay": 0.1,
-            "sustain": 0.3,
-            "release": 1,
-        });
-
-
-        Object.assign(effectValues, {
-            "reverb": 4.2,
-            "pingpong1": 0.5,
-            "pingpong2": 0.5,
-        });
-
-        $("#synth1").prop("checked", true);
-        $("#waveform1").prop("checked", true);
-        $("#modifier4").prop("checked", true);
-
-        $("#reverb-toggle").prop("checked", true);
-        this.addModule("reverb", 1);
-        $("#pingpong-toggle").prop("checked", true);
-        this.addModule("pingpong", 2);
-    }
-
-    public setPreset2(): void {
-        /*
-        All settings for preset 2
-         */
-        Object.assign(synth1Parameters, {
-            "synth": "synth",
-            "waveform": "triangle",
-            "oscillator_type": ""
-        });
-
-        Object.assign(synthEnvelope, {
-            "attack": 0.005,
-            "decay": 2.4,
-            "sustain": 0.0,
-            "release": 2.5,
-        });
-
-        Object.assign(effectValues, {
-            "lowpass": 610,
-            "feedback1": 0.04,
-            "feedback2": 0.5,
-            "widener": 1
-        });
-
-        $("#synth1").prop("checked", true);
-        $("#waveform4").prop("checked", true);
-        $("#modifier1").prop("checked", true);
-
-        $("#lowpass-toggle").prop("checked", true);
-        this.addModule("lowpass", 1);
-        $("#feedback-toggle").prop("checked", true);
-        this.addModule("feedback", 2);
-        $("#widener-toggle").prop("checked", true);
-        this.addModule("widener", 3);
-    }
-
-    public setPreset3(): void {
-        /*
-        All settings for preset 3
-         */
-        Object.assign(synth1Parameters, {
-            "synth": "fmsynth",
-            "waveform": "triangle",
-            "oscillator_type": "fm"
-        });
-
-        Object.assign(synthEnvelope, {
-            "attack": 0.005,
-            "decay": 0.1,
-            "sustain": 0.3,
-            "release": 3,
-        });
-
-        Object.assign(effectValues, {
-            "lowpass": 400,
-            "wah": 9
-        });
-
-        $("#synth3").prop("checked", true);
-        $("#waveform4").prop("checked", true);
-        $("#modifier3").prop("checked", true);
-
-        $("#lowpass-toggle").prop("checked", true);
-        this.addModule("lowpass", 1);
-        $("#wah-toggle").prop("checked", true);
-        this.addModule("wah", 2);
-    }
-
-    public setPreset4(): void {
-        /*
-        All settings for preset 4
-         */
-        Object.assign(synth1Parameters, {
-            "synth": "amsynth",
-            "waveform": "pwm",
-            "oscillator_type": ""
-        });
-
-        Object.assign(synthEnvelope, {
-            "attack": 0.005,
-            "decay": 0.1,
-            "sustain": 0.3,
-            "release": 0.2,
-        });
-
-        Object.assign(effectValues, {
-            "reverb": 4.5,
-            "feedback1": 0.8,
-            "feedback2": 0.5,
-            "wah": 4.5,
-            "phaser1": 2.2,
-            "phaser2": 3.5
-        });
-
-        $("#synth2").prop("checked", true);
-        $("#waveform6").prop("checked", true);
-        $("#modifier1").prop("checked", true);
-
-        $("#reverb-toggle").prop("checked", true);
-        this.addModule("reverb", 1);
-        $("#feedback-toggle").prop("checked", true);
-        this.addModule("feedback", 2);
-        $("#wah-toggle").prop("checked", true);
-        this.addModule("wah", 3);
-        $("#phaser-toggle").prop("checked", true);
-        this.addModule("phaser", 4);
-    }
-
-    public setPreset5(): void {
-        /*
-        All settings for preset 5
-         */
-        Object.assign(synth1Parameters, {
-            "synth": "amsynth",
-            "waveform": "sine",
-            "oscillator_type": "fm"
-        });
-
-        Object.assign(synthEnvelope, {
-            "attack": 0.05,
-            "decay": 0.1,
-            "sustain": 1,
-            "release": 4,
-        });
-
-        Object.assign(effectValues, {
-            "reverb": 5
-        });
-
-        $("#synth2").prop("checked", true);
-        $("#waveform1").prop("checked", true);
-        $("#modifier3").prop("checked", true);
-
-        $("#reverb-toggle").prop("checked", true);
-        this.addModule("reverb", 1);
-    }
-
-    public setPreset6(): void {
-        /*
-        All settings for preset 6
-         */
-        Object.assign(synth1Parameters, {
-            "synth": "fmsynth",
-            "waveform": "triangle",
-            "oscillator_type": "am"
-        });
-
-        Object.assign(synthEnvelope, {
-            "attack": 0.005,
-            "decay": 0.1,
-            "sustain": 0.3,
-            "release": 0.2,
-        });
-
-        Object.assign(effectValues, {
-            "reverb": 2,
-            "chorus1": 53,
-            "chorus2": 1.5,
-            "distortion": 0.5,
-            "widener": 0.8,
-            "vibrato1": 1.7,
-            "vibrato2": 0.52,
-        });
-
-        $("#synth3").prop("checked", true);
-        $("#waveform4").prop("checked", true);
-        $("#modifier2").prop("checked", true);
-
-
-        $("#chorus-toggle").prop("checked", true);
-        this.addModule("chorus", 1);
-        $("#distortion-toggle").prop("checked", true);
-        this.addModule("distortion", 2);
-        $("#widener-toggle").prop("checked", true);
-        this.addModule("widener", 3);
-        $("#vibrato-toggle").prop("checked", true);
-        this.addModule("vibrato", 4);
-        $("#reverb-toggle").prop("checked", true);
-        this.addModule("reverb", 5);
-    }
-
-
-    public resetCheckboxes(): void {
-        /*
-        Turns all checkboxes off
-         */
-        for (const name of Object.keys(effectValues)) {
-            $("#" + name + "-toggle").prop("checked", false);
-        }
-    }
-
-    public setSliders(): void {
-        /*
-        Sets the sliders to the stored values
-         */
-        for (const [name, value] of Object.entries(effectValues)) {
-            $("#" + name + "-slider").val(value);
-        }
-        for (const [name, value] of Object.entries(synthEnvelope)) {
-            $("#" + name + "-slider").val(value);
-        }
-        for (const [name, value] of Object.entries(synth1Parameters)) {
-            $("#" + name + "-slider").val(value);
-        }
-    }
+    // public setPreset1(): void {
+    //     /*
+    //     All settings for preset 1
+    //      */
+    //     Object.assign(synth1Parameters, {
+    //         "synth": "synth",
+    //         "waveform": "sine",
+    //         "oscillator_type": "fat",
+    //         "partials1": 0,
+    //         "partials2": 0,
+    //         "partials3": 0,
+    //         "partials4": 0
+    //     });
+    //
+    //     Object.assign(synthEnvelope, {
+    //         "attack": 0.005,
+    //         "decay": 0.1,
+    //         "sustain": 0.3,
+    //         "release": 1,
+    //     });
+    //
+    //
+    //     Object.assign(effectValues, {
+    //         "reverb": 4.2,
+    //         "pingpong1": 0.5,
+    //         "pingpong2": 0.5,
+    //     });
+    //
+    //     $("#synth1").prop("checked", true);
+    //     $("#waveform1").prop("checked", true);
+    //     $("#modifier4").prop("checked", true);
+    //
+    //     $("#reverb-toggle").prop("checked", true);
+    //     this.addModule("reverb", 1);
+    //     $("#pingpong-toggle").prop("checked", true);
+    //     this.addModule("pingpong", 2);
+    // }
+    //
+    // public setPreset2(): void {
+    //     /*
+    //     All settings for preset 2
+    //      */
+    //     Object.assign(synth1Parameters, {
+    //         "synth": "synth",
+    //         "waveform": "triangle",
+    //         "oscillator_type": ""
+    //     });
+    //
+    //     Object.assign(synthEnvelope, {
+    //         "attack": 0.005,
+    //         "decay": 2.4,
+    //         "sustain": 0.0,
+    //         "release": 2.5,
+    //     });
+    //
+    //     Object.assign(effectValues, {
+    //         "lowpass": 610,
+    //         "feedback1": 0.04,
+    //         "feedback2": 0.5,
+    //         "widener": 1
+    //     });
+    //
+    //     $("#synth1").prop("checked", true);
+    //     $("#waveform4").prop("checked", true);
+    //     $("#modifier1").prop("checked", true);
+    //
+    //     $("#lowpass-toggle").prop("checked", true);
+    //     this.addModule("lowpass", 1);
+    //     $("#feedback-toggle").prop("checked", true);
+    //     this.addModule("feedback", 2);
+    //     $("#widener-toggle").prop("checked", true);
+    //     this.addModule("widener", 3);
+    // }
+    //
+    // public setPreset3(): void {
+    //     /*
+    //     All settings for preset 3
+    //      */
+    //     Object.assign(synth1Parameters, {
+    //         "synth": "fmsynth",
+    //         "waveform": "triangle",
+    //         "oscillator_type": "fm"
+    //     });
+    //
+    //     Object.assign(synthEnvelope, {
+    //         "attack": 0.005,
+    //         "decay": 0.1,
+    //         "sustain": 0.3,
+    //         "release": 3,
+    //     });
+    //
+    //     Object.assign(effectValues, {
+    //         "lowpass": 400,
+    //         "wah": 9
+    //     });
+    //
+    //     $("#synth3").prop("checked", true);
+    //     $("#waveform4").prop("checked", true);
+    //     $("#modifier3").prop("checked", true);
+    //
+    //     $("#lowpass-toggle").prop("checked", true);
+    //     this.addModule("lowpass", 1);
+    //     $("#wah-toggle").prop("checked", true);
+    //     this.addModule("wah", 2);
+    // }
+    //
+    // public setPreset4(): void {
+    //     /*
+    //     All settings for preset 4
+    //      */
+    //     Object.assign(synth1Parameters, {
+    //         "synth": "amsynth",
+    //         "waveform": "pwm",
+    //         "oscillator_type": ""
+    //     });
+    //
+    //     Object.assign(synthEnvelope, {
+    //         "attack": 0.005,
+    //         "decay": 0.1,
+    //         "sustain": 0.3,
+    //         "release": 0.2,
+    //     });
+    //
+    //     Object.assign(effectValues, {
+    //         "reverb": 4.5,
+    //         "feedback1": 0.8,
+    //         "feedback2": 0.5,
+    //         "wah": 4.5,
+    //         "phaser1": 2.2,
+    //         "phaser2": 3.5
+    //     });
+    //
+    //     $("#synth2").prop("checked", true);
+    //     $("#waveform6").prop("checked", true);
+    //     $("#modifier1").prop("checked", true);
+    //
+    //     $("#reverb-toggle").prop("checked", true);
+    //     this.addModule("reverb", 1);
+    //     $("#feedback-toggle").prop("checked", true);
+    //     this.addModule("feedback", 2);
+    //     $("#wah-toggle").prop("checked", true);
+    //     this.addModule("wah", 3);
+    //     $("#phaser-toggle").prop("checked", true);
+    //     this.addModule("phaser", 4);
+    // }
+    //
+    // public setPreset5(): void {
+    //     /*
+    //     All settings for preset 5
+    //      */
+    //     Object.assign(synth1Parameters, {
+    //         "synth": "amsynth",
+    //         "waveform": "sine",
+    //         "oscillator_type": "fm"
+    //     });
+    //
+    //     Object.assign(synthEnvelope, {
+    //         "attack": 0.05,
+    //         "decay": 0.1,
+    //         "sustain": 1,
+    //         "release": 4,
+    //     });
+    //
+    //     Object.assign(effectValues, {
+    //         "reverb": 5
+    //     });
+    //
+    //     $("#synth2").prop("checked", true);
+    //     $("#waveform1").prop("checked", true);
+    //     $("#modifier3").prop("checked", true);
+    //
+    //     $("#reverb-toggle").prop("checked", true);
+    //     this.addModule("reverb", 1);
+    // }
+    //
+    // public setPreset6(): void {
+    //     /*
+    //     All settings for preset 6
+    //      */
+    //     Object.assign(synth1Parameters, {
+    //         "synth": "fmsynth",
+    //         "waveform": "triangle",
+    //         "oscillator_type": "am"
+    //     });
+    //
+    //     Object.assign(synthEnvelope, {
+    //         "attack": 0.005,
+    //         "decay": 0.1,
+    //         "sustain": 0.3,
+    //         "release": 0.2,
+    //     });
+    //
+    //     Object.assign(effectValues, {
+    //         "reverb": 2,
+    //         "chorus1": 53,
+    //         "chorus2": 1.5,
+    //         "distortion": 0.5,
+    //         "widener": 0.8,
+    //         "vibrato1": 1.7,
+    //         "vibrato2": 0.52,
+    //     });
+    //
+    //     $("#synth3").prop("checked", true);
+    //     $("#waveform4").prop("checked", true);
+    //     $("#modifier2").prop("checked", true);
+    //
+    //
+    //     $("#chorus-toggle").prop("checked", true);
+    //     this.addModule("chorus", 1);
+    //     $("#distortion-toggle").prop("checked", true);
+    //     this.addModule("distortion", 2);
+    //     $("#widener-toggle").prop("checked", true);
+    //     this.addModule("widener", 3);
+    //     $("#vibrato-toggle").prop("checked", true);
+    //     this.addModule("vibrato", 4);
+    //     $("#reverb-toggle").prop("checked", true);
+    //     this.addModule("reverb", 5);
+    // }
+    //
+    //
+    // public resetCheckboxes(): void {
+    //     /*
+    //     Turns all checkboxes off
+    //      */
+    //     for (const name of Object.keys(effectValues)) {
+    //         $("#" + name + "-toggle").prop("checked", false);
+    //     }
+    // }
+    //
+    // public setSliders(): void {
+    //     /*
+    //     Sets the sliders to the stored values
+    //      */
+    //     for (const [name, value] of Object.entries(effectValues)) {
+    //         $("#" + name + "-slider").val(value);
+    //     }
+    //     for (const [name, value] of Object.entries(synthEnvelope)) {
+    //         $("#" + name + "-slider").val(value);
+    //     }
+    //     for (const [name, value] of Object.entries(synth1Parameters)) {
+    //         $("#" + name + "-slider").val(value);
+    //     }
+    // }
 
     // ------------ Module Chain Functions ------------
 
@@ -653,21 +654,21 @@ export class Synthesiser {
         denseChain[denseChain.length - 1].toDestination();
     }
 
-    public resetChain(): void {
-        /*
-        Removes all modules from module chain
-         */
-        console.log("RESETTING CHAIN of length " + this.moduleChain.length);
-        const originalChainLength = this.moduleChain.length;
-        for (let i = 1; i < originalChainLength - 1; i++) {
-            if (this.moduleChain[i]) {
-                console.log("removing " + this.moduleChain[i]);
-                this.removeModule(i);
-            }
-        }
-        console.log("RESET CHAIN: " + this.moduleChain);
-        this.connectChain();
-    }
+    // public resetChain(): void {
+    //     /*
+    //     Removes all elements in the chain
+    //      */
+    //     console.log("RESETTING CHAIN of length " + this.moduleChain.length);
+    //     const originalChainLength = this.moduleChain.length;
+    //     for (let i = 1; i < originalChainLength - 1; i++) {
+    //         if (this.moduleChain[i]) {
+    //             console.log("removing " + this.moduleChain[i]);
+    //             this.removeModule(i);
+    //         }
+    //     }
+    //     console.log("RESET CHAIN: " + this.moduleChain);
+    //     this.connectChain();
+    // }
 
 
 
@@ -730,7 +731,7 @@ export class Synthesiser {
                 console.warn("Unknown module Type: " + moduleType);
                 return;
         }
-        this.existingModules.push({ id: moduleType, instance: module });
+        // this.existingModules.push({ id: moduleType, instance: module });
 
         this.moduleChain[spaceId] = module;
 
@@ -739,6 +740,9 @@ export class Synthesiser {
     }
 
     public removeModule(spaceId: number): void {
+        /*
+        Removes a module from the chain
+         */
         const moduleToRemove = this.moduleChain[spaceId];
         if (moduleToRemove) {
             moduleToRemove.dispose();
@@ -757,7 +761,7 @@ export class Synthesiser {
         return delayNames.includes(module.name);
     }
 
-    public getModuleChain(): (Tone.ToneAudioNode | null)[] {
-        return this.moduleChain;
-    }
+    // public getModuleChain(): (Tone.ToneAudioNode | null)[] {
+    //     return this.moduleChain;
+    // }
 }
